@@ -1,0 +1,1 @@
+// Initialized config.js file
