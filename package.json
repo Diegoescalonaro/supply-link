@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Diegoescalonaro/supply-link/issues"
   },
-  "homepage": "https://github.com/Diegoescalonaro/supply-link#readme"
+  "homepage": "https://github.com/Diegoescalonaro/supply-link#readme",
+  "dependencies": {
+    "create-react-app": "^2.1.1",
+    "web3": "^1.0.0-beta.36"
+  }
 }
