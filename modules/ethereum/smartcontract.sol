@@ -1,5 +1,3 @@
-/* Primera version de smart contract para plataforma */
-
 pragma solidity ^0.4.25;
 
 contract Plataforma {
@@ -7,7 +5,6 @@ contract Plataforma {
     /** Atributos, eventos, etc */
     
     uint256 private numberID;
- 
     struct Solicitud {
         uint256 id;
         string info;
@@ -51,6 +48,10 @@ contract Plataforma {
         for (uint i=0; i<lenght; i++){
             if (solicitudes[i].id == _numberID) return (solicitudes[i].owner);
         }
+    }
+    
+    function getLength() public view returns(uint count) {
+        return solicitudes.length;
     }
 
     /* FUNCIONES */
