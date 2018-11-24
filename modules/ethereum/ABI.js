@@ -1,4 +1,4 @@
-[
+exports.platform = [
 	{
 		"constant": true,
 		"inputs": [
@@ -89,6 +89,20 @@
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getLength",
+		"outputs": [
+			{
+				"name": "count",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
