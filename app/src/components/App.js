@@ -3,7 +3,7 @@ import logo from '../logo.svg';
 import ethereum from '../ethereum.svg';
 // import * as eth from '../ethereum/ethereumController.js';
 
-import './App.css';
+import '../css/App.css';
 
 //import Web3 from 'web3';
 //import Web3Provider from 'react-web3-provider';
