@@ -1,1 +1,1 @@
-// Initialized index.js file work in progres
+// Initialized index.js file 
