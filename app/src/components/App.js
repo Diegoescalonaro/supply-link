@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
-import ethereum from '../ethereum.svg';
+import logo from '../utils/logo.svg';
+import ethereum from '../utils/ethereum';
 // import * as eth from '../ethereum/ethereumController.js';
 
 import '../css/App.css';
