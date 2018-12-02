@@ -43,6 +43,8 @@ var initWeb3 = function () {
     default:
       console.log('This is an unknown network.')
   }
+
+  return web3;
 }
 
 export default initWeb3

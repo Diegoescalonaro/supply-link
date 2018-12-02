@@ -1,4 +1,4 @@
-exports.platform = [
+var platformABI = [
 	{
 		"constant": true,
 		"inputs": [
@@ -130,3 +130,5 @@ exports.platform = [
 		"type": "event"
 	}
 ]
+
+export default platformABI

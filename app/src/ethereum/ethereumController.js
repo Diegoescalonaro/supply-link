@@ -3,7 +3,7 @@
  * @description Ethereum Controller
  */
 
-var Web3 = require('web3')
+// var Web3 = require('web3')
 var ABI = require('./ABI.js').platform
 
 /**
@@ -17,49 +17,51 @@ var ABI = require('./ABI.js').platform
  */
 
 // Default provider settings
-var web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"))
-exports.web3 = web3
+// var web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"))
+// exports.web3 = web3
+
 
 // Default account settings
-defaultAccount = async function () {
-    const accounts = await web3.eth.getAccounts()
-    web3.eth.defaultAccount = accounts[0]
-    console.log("Default account: " + web3.eth.defaultAccount)
+// var defaultAccount = async function () {
+//     const accounts = await web3.eth.getAccounts()
+//     web3.eth.defaultAccount = accounts[0]
+//     console.log("Default account: " + web3.eth.defaultAccount)
 
-    const balance = await web3.eth.getBalance(web3.eth.defaultAccount)
-    console.log("Balance:", web3.utils.fromWei(balance, "ether"))
-}
-exports.defaultAccount = defaultAccount
+//     const balance = await web3.eth.getBalance(web3.eth.defaultAccount)
+//     console.log("Balance:", web3.utils.fromWei(balance, "ether"))
+// }
+// export default defaultAccount;
 
-defaultAccount()
+// defaultAccount()
 
-/**
- * @function setProvider
- * @param network {String} ['local', 'testnet']
- * @description  
- */
+// /**
+//  * @function setProvider
+//  * @param network {String} ['local', 'testnet']
+//  * @description  
+//  */
 
-setProvider = function (network) {
-    if (network == 'local') {
-        web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'))
-        web3.eth.defaultAccount = web3.eth.accounts[0]
-        exports.web3 = web3
-        console.log("Local provider")
-        return ("Local provider")
-    } else if (network == 'testnet') {
-        web3 = new Web3(new Web3.providers.HttpProvider('IP_PUBLICA'))
-        web3.eth.defaultAccount = web3.eth.accounts[0]
-        exports.web3 = web3
-        console.log("Testnet provider")
-        return ("Testnet provider")
-    } else {
-        console.log("You must introduce: 'local' or 'testnet' in order to set the provider.")
-        return ("error")
-    }
-}
-exports.setProvider = setProvider
+// var setProvider = function (network) {
+//     if (network === 'local') {
+//         web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'))
+//         web3.eth.defaultAccount = web3.eth.accounts[0]
+//         exports.web3 = web3
+//         console.log("Local provider")
+//         return ("Local provider")
+//     } else if (network === 'testnet') {
+//         web3 = new Web3(new Web3.providers.HttpProvider('IP_PUBLICA'))
+//         web3.eth.defaultAccount = web3.eth.accounts[0]
+//         exports.web3 = web3
+//         console.log("Testnet provider")
+//         return ("Testnet provider")
+//     } else {
+//         console.log("You must introduce: 'local' or 'testnet' in order to set the provider.")
+//         return ("error")
+//     }
+// }
+// exports.setProvider = setProvider
 
-setProvider('local')
+// setProvider('local')
+
 
 
 /**
@@ -72,7 +74,7 @@ setProvider('local')
 var smartcontractaddress = undefined
 var trContract = undefined
 
-instantiateContract = function (address) {
+var instantiateContract = function (address) {
     smartcontractaddress = address
     exports.smartcontractaddress = smartcontractaddress
 
@@ -91,8 +93,8 @@ exports.instantiateContract = instantiateContract
  * @returns {Promise}
  */
 function solicitar(info) {
-    return thePromise = new Promise((resolve, reject) => {
-        if (trContract == undefined)
+    var thePromise = new Promise((resolve, reject) => {
+        if (trContract === undefined)
             resolve("You must instantiate the contract.")
         else {
             //web3.eth.personal.unlockAccount("account","config.ethereum.defaultAccount_pass")
@@ -108,6 +110,7 @@ function solicitar(info) {
                 })
         }
     })
+    return thePromise
 }
 exports.solicitar = solicitar
 
@@ -140,7 +143,7 @@ exports.cubrir = function (numberID) {
                 resolve(res.transactionHash)
             })
             .catch(err => {
-                logger.error(err.message)
+                //logger.error(err.message)
                 reject(err.message)
             })
     })
@@ -166,7 +169,7 @@ exports.validar = function (numberID, state) {
                 resolve(res.transactionHash)
             })
             .catch(err => {
-                logger.error(err.message)
+                //logger.error(err.message)
                 reject(err.message)
             })
     })
@@ -180,7 +183,7 @@ exports.validar = function (numberID, state) {
  * @description 
  * @returns {Promise}
  */
-getNecesidadByID = async function (numberID) {
+var getNecesidadByID = async function (numberID) {
     var result = await trContract.methods.getNecesidadByID(numberID).call()
     return { info: result['info'], owner: result['owner'], provider: result['provider'] }
 }
@@ -192,10 +195,10 @@ exports.getNecesidadByID = getNecesidadByID
  * @description
  * @returns
  */
-getAllSolicitudes = async function () {
+var getAllSolicitudes = async function () {
     var length = await trContract.methods.getLength().call()
     console.log(length)
-    for (i = 0; i < length; i++) {
+    for (var i = 0; i < length; i++) {
         var result = await trContract.methods.getNecesidadByID(i).call()
         console.log(result)
     }
@@ -208,12 +211,13 @@ exports.getAllSolicitudes = getAllSolicitudes
  * @description
  * @returns
  */
-getAllSolicitudesByAddress = async function (address) {
+var getAllSolicitudesByAddress = async function (address) {
     var length = await trContract.methods.getLength().call()
     console.log(length)
-    for (i = 0; i < length; i++) {
+    for (var i = 0; i < length; i++) {
         var result = await trContract.methods.getNecesidadByID(i).call()
-        if (result.owner == address) console.log(result)
+        if (result.owner === address) console.log(result)
     }
 }
-exports.getAllSolicitudesByAddress = getAllSolicitudesByAddress
+exports.getAllSolicitudesByAddress = getAllSolicitudesByAddress 
+
