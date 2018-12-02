@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import logo from '../utils/logo.svg';
-import ethereum from '../utils/ethereum';
-// import * as eth from '../ethereum/ethereumController.js';
+import ethereum from '../utils/ethereum.svg';
+import initWeb3 from './web3';
+
+import * as eth from '../ethereum/ethereumController.js';
 
 import '../css/App.css';
 
 //import Web3 from 'web3';
 //import Web3Provider from 'react-web3-provider';
 
-import web3 from './web3';
+
 
 class App extends Component {
 
@@ -16,24 +17,24 @@ class App extends Component {
     super(props)
     this.state = { account: '0x0' }
   }
-  componentWillMount() {
-    
 
+  componentWillMount() {
+    initWeb3();
   }
 
-  handleClick(e) {
-    //e.preventDefault()
-    console.log("Hola")
-    console.log()
+  start() {
+    initWeb3();
+  }
+
+  handleClick(){
+    
   }
 
 
   render() {
+    initWeb3();
 
-    web3.eth.getAccounts().then(console.log)
-
-
-
+    //web3.eth.getAccounts().then(console.log)
 
     return (
       
@@ -42,10 +43,11 @@ class App extends Component {
         <header className="App-header">
           <img src={ethereum} className="App-logo" alt="logo" />
           <p>
-             Ethereum Blockchain Platform <code>src/App.js</code> 
+
+            TFG  <code></code>
           </p>
 
-          <button className="aa" onClick={e => this.handleClick(e)}>Pulsar</button>
+          <button className="aa" onClick={e => this.start()}>Start</button>
         </header>
 
         <div className="App-body">
