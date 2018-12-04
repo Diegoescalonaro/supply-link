@@ -29,6 +29,10 @@ var platformABI = [
 		"name": "getNecesidadByID",
 		"outputs": [
 			{
+				"name": "id",
+				"type": "uint256"
+			},
+			{
 				"name": "info",
 				"type": "string"
 			},
