@@ -114,19 +114,19 @@ var platformABI = [
 	{
 		"anonymous": false,
 		"inputs": [],
-		"name": "Necesidad",
+		"name": "SolicitudEnviada",
 		"type": "event"
 	},
 	{
 		"anonymous": false,
 		"inputs": [],
-		"name": "NecesidadCubierta",
+		"name": "SolicitudCubierta",
 		"type": "event"
 	},
 	{
 		"anonymous": false,
 		"inputs": [],
-		"name": "NecesidadValidada",
+		"name": "SolicitudValidada",
 		"type": "event"
 	}
 ]
