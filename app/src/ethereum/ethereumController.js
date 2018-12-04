@@ -33,11 +33,8 @@ export var getDefaultAccount = async function () {
 
     const balance = await web3.eth.getBalance(web3.eth.defaultAccount)
     console.log("Balance:", web3.utils.fromWei(balance, "ether"), "eth")
-    return web3.eth.defaultAccount
+    return await web3.eth.defaultAccount
 }
-export var defaultAccount = getDefaultAccount()
-console.log(defaultAccount)
-console.log("WHY IS PROMISE?") //TODO: 
 
 /**
  * @function solicitar
@@ -50,13 +47,13 @@ export var solicitar = function (info) {
         if (contract === undefined)
             resolve("You must instantiate the contract.")
         else {
-            console.log(defaultAccount) //TODO: defaultAccount is promise
+            console.log(web3.eth.defaultAccount) //TODO: defaultAccount is promise
             //web3.eth.personal.unlockAccount("account","config.ethereum.defaultAccount_pass")
-            contract.methods.solicitar(info).send({ from: defaultAccount, gas: 900000 })
+            contract.methods.solicitar(info).send({ from: web3.eth.defaultAccount, gas: 900000 })
                 .then(res => {
                     // will be fired once the receipt its mined
                     //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
-                    resolve(res.transactionHash)
+                    resolve(res)
                 })
                 .catch(error => {
                     //logger.error(err.message)
@@ -86,13 +83,12 @@ export var solicitarAsync = async function (info) {
  */
 export var cubrir = function (numberID) {
     let thePromise = new Promise((resolve, reject) => {
-
         //web3.eth.personal.unlockAccount("account","config.ethereum.defaultAccount_pass")
-        contract.methods.cubrir(numberID).send({ from: defaultAccount, gas: 900000 })  //TODO: PARAMETROS
+        contract.methods.cubrir(numberID).send({ from: web3.eth.defaultAccount, gas: 900000 })  //TODO: PARAMETROS
             .then(res => {
                 // will be fired once the receipt its mined
                 //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
-                resolve(res.transactionHash)
+                resolve(res)
             })
             .catch(err => {
                 //logger.error(err.message)
@@ -101,7 +97,6 @@ export var cubrir = function (numberID) {
     })
     return thePromise
 }
-
 
 /**
  * @function validar
@@ -112,13 +107,12 @@ export var cubrir = function (numberID) {
  */
 export var validar = function (numberID, state) {
     let thePromise = new Promise((resolve, reject) => {
-
         //web3.eth.personal.unlockAccount("account","config.ethereum.defaultAccount_pass")
-        contract.methods.validar(numberID, state).send({ from: defaultAccount, gas: 900000 })
+        contract.methods.validar(numberID, state).send({ from: web3.eth.defaultAccount, gas: 900000 })
             .then(res => {
                 // will be fired once the receipt its mined
                 //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
-                resolve(res.transactionHash)
+                resolve(res)
             })
             .catch(err => {
                 //logger.error(err.message)
@@ -130,17 +124,15 @@ export var validar = function (numberID, state) {
 
 
 /**
- * @function getNecesidadByID 
+ * @function getSolicitudByID 
  * @param numberID {Number} 
  * @description 
  * @returns {Promise}
  */
-export var getNecesidadByID = async function (numberID) {
+export var getSolicitudByID = async function (numberID) {
     var result = await contract.methods.getNecesidadByID(numberID).call()
     return { info: result['info'], owner: result['owner'], provider: result['provider'] }
 }
-
-
 
 /**
  * @function getAllSolicitudes
@@ -155,8 +147,6 @@ export var getAllSolicitudes = async function () {
         console.log(result)
     }
 }
-
-
 
 /**
  * @function getAllSolicitudes
