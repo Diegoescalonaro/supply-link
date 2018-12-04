@@ -17,30 +17,21 @@ contract Plataforma {
     mapping (uint256 => Solicitud) numberIDtoSolicitud;
     
     // eventos
-    event Necesidad();
-    event NecesidadCubierta();
-    event NecesidadValidada();
+    event SolicitudEnviada();
+    event SolicitudCubierta();
+    event SolicitudValidada();
     
     constructor() public{
         numberID = 0;
     }
     
-    /*struct SolicitudCubierta{
-        string info;
-        address proveedor;
-    }
 
     /* GETS */
     
-    // getNecesidad
-    //function getNecesidad(uint256 _position) public view returns(uint256 id, string info, address owner){
-    //    return (solicitudes[_position].id, solicitudes[_position].info, solicitudes[_position].owner);
-    //}
-    
-    function getNecesidadByID(uint256 _numberID) public view returns(string info, address owner, address provider){
+    function getNecesidadByID(uint256 _numberID) public view returns(uint256 id, string info, address owner, address provider){
         uint lenght = solicitudes.length;
         for (uint i=0; i<lenght; i++){
-            if (solicitudes[i].id == _numberID) return (solicitudes[i].info, solicitudes[i].owner, solicitudes[i].provider);
+            if (solicitudes[i].id == _numberID) return (solicitudes[i].id,solicitudes[i].info, solicitudes[i].owner, solicitudes[i].provider);
         }
     }
     function getNecesidadOwner(uint256 _numberID) public view returns(address owner){
@@ -72,7 +63,8 @@ contract Plataforma {
     }
     
     function validar(uint256 _numberID, bool _state) public{
-        require(msg.sender == getNecesidadOwner(_numberID));
+        require(msg.sender == getNecesidadOwner(_numberID))
+        ;
         if(_state) delete solicitudes[positionToNumberID[_numberID]];
             // emit event
          else solicitudes[positionToNumberID[_numberID]].provider = 0x0;
