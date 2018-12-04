@@ -1,90 +1,43 @@
-/**
- * @namespace Ethereum
- * @description Ethereum Controller
- */
+import Web3 from 'web3';
+import { get } from 'https';
 
-// var Web3 = require('web3')
-var ABI = require('./ABI.js').platform
+/* ABI + ADDRESS */
+export var ABI = require('./ABI.js').default
+export var address = '0xb8d4b1a6f55d766310641637996b59fbc4479441'
 
-/**
- * Version web3: 1.x.x (web3.version.api) 
- * 
- * Conectando al nodo Parity en testnet KOVAN:
- * Kovan Network - Nodo parity IP
- * 
- * Conectando al nodo de pruebas local en Ganache:
- * Testnet Ganache (127.0.0.1:8545)
- */
+/* WEB3 CREATION */
+var web3 = window.web3
+var web3provider = undefined
 
-// Default provider settings
-// var web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"))
-// exports.web3 = web3
+/* WEB3 PROVIDER */
+if (typeof web3 != 'undefined') {
+    web3provider = web3.currentProvider
+    console.log("Metamask provider")
+} else {
+    alert("Please, install Metamask plugin.")
+    web3provider = new Web3.providers.HttpProvider("http://127.0.0.1:8545")
+    console.log("Ganache provider")
+}
+export var web3 = new Web3(web3provider)
+console.log(web3)
 
+/* CONTRACT IMPLEMENTATION */
+export var contract = new web3.eth.Contract(ABI, address);
+console.log(contract)
 
 // Default account settings
-// var defaultAccount = async function () {
-//     const accounts = await web3.eth.getAccounts()
-//     web3.eth.defaultAccount = accounts[0]
-//     console.log("Default account: " + web3.eth.defaultAccount)
+export var getDefaultAccount = async function () {
+    const accounts = await web3.eth.getAccounts()
+    web3.eth.defaultAccount = accounts[0]
+    console.log("Default account: " + web3.eth.defaultAccount)
 
-//     const balance = await web3.eth.getBalance(web3.eth.defaultAccount)
-//     console.log("Balance:", web3.utils.fromWei(balance, "ether"))
-// }
-// export default defaultAccount;
-
-// defaultAccount()
-
-// /**
-//  * @function setProvider
-//  * @param network {String} ['local', 'testnet']
-//  * @description  
-//  */
-
-// var setProvider = function (network) {
-//     if (network === 'local') {
-//         web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'))
-//         web3.eth.defaultAccount = web3.eth.accounts[0]
-//         exports.web3 = web3
-//         console.log("Local provider")
-//         return ("Local provider")
-//     } else if (network === 'testnet') {
-//         web3 = new Web3(new Web3.providers.HttpProvider('IP_PUBLICA'))
-//         web3.eth.defaultAccount = web3.eth.accounts[0]
-//         exports.web3 = web3
-//         console.log("Testnet provider")
-//         return ("Testnet provider")
-//     } else {
-//         console.log("You must introduce: 'local' or 'testnet' in order to set the provider.")
-//         return ("error")
-//     }
-// }
-// exports.setProvider = setProvider
-
-// setProvider('local')
-
-
-
-/**
- * @function instantiateContract
- * @param address {Address} Smart Contract address in the blockchain platform
- * @description Instantiate the ethereum smart contract from the public address
- */
-
-
-var smartcontractaddress = undefined
-var trContract = undefined
-
-var instantiateContract = function (address) {
-    smartcontractaddress = address
-    exports.smartcontractaddress = smartcontractaddress
-
-    trContract = new web3.eth.Contract(ABI, address)
-    exports.trContract = trContract
-
-    return trContract
+    const balance = await web3.eth.getBalance(web3.eth.defaultAccount)
+    console.log("Balance:", web3.utils.fromWei(balance, "ether"), "eth")
+    return web3.eth.defaultAccount
 }
-exports.instantiateContract = instantiateContract
-
+export var defaultAccount = getDefaultAccount()
+console.log(defaultAccount)
+console.log("WHY IS PROMISE?") //TODO: 
 
 /**
  * @function solicitar
@@ -92,13 +45,14 @@ exports.instantiateContract = instantiateContract
  * @description 
  * @returns {Promise}
  */
-function solicitar(info) {
+export var solicitar = function (info) {
     var thePromise = new Promise((resolve, reject) => {
-        if (trContract === undefined)
+        if (contract === undefined)
             resolve("You must instantiate the contract.")
         else {
+            console.log(defaultAccount) //TODO: defaultAccount is promise
             //web3.eth.personal.unlockAccount("account","config.ethereum.defaultAccount_pass")
-            trContract.methods.solicitar(info).send({ from: web3.eth.defaultAccount, gas: 900000 })
+            contract.methods.solicitar(info).send({ from: defaultAccount, gas: 900000 })
                 .then(res => {
                     // will be fired once the receipt its mined
                     //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
@@ -112,9 +66,9 @@ function solicitar(info) {
     })
     return thePromise
 }
-exports.solicitar = solicitar
 
-exports.solicitarAsync = async function (info) {
+
+export var solicitarAsync = async function (info) {
     try {
         var x = await solicitar(info)
         console.log(x)
@@ -124,19 +78,17 @@ exports.solicitarAsync = async function (info) {
     }
 }
 
-
-
 /**
  * @function cubrir
  * @param numberID {Number}
  * @description 
  * @returns {Promise}
  */
-exports.cubrir = function (numberID) {
+export var cubrir = function (numberID) {
     let thePromise = new Promise((resolve, reject) => {
 
         //web3.eth.personal.unlockAccount("account","config.ethereum.defaultAccount_pass")
-        trContract.methods.cubrir(numberID).send({ from: web3.eth.defaultAccount, gas: 900000 })  //TODO: PARAMETROS
+        contract.methods.cubrir(numberID).send({ from: defaultAccount, gas: 900000 })  //TODO: PARAMETROS
             .then(res => {
                 // will be fired once the receipt its mined
                 //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
@@ -158,11 +110,11 @@ exports.cubrir = function (numberID) {
  * @description 
  * @returns {Promise}
  */
-exports.validar = function (numberID, state) {
+export var validar = function (numberID, state) {
     let thePromise = new Promise((resolve, reject) => {
 
         //web3.eth.personal.unlockAccount("account","config.ethereum.defaultAccount_pass")
-        trContract.methods.validar(numberID, state).send({ from: web3.eth.defaultAccount, gas: 900000 })
+        contract.methods.validar(numberID, state).send({ from: defaultAccount, gas: 900000 })
             .then(res => {
                 // will be fired once the receipt its mined
                 //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
@@ -183,11 +135,11 @@ exports.validar = function (numberID, state) {
  * @description 
  * @returns {Promise}
  */
-var getNecesidadByID = async function (numberID) {
-    var result = await trContract.methods.getNecesidadByID(numberID).call()
+export var getNecesidadByID = async function (numberID) {
+    var result = await contract.methods.getNecesidadByID(numberID).call()
     return { info: result['info'], owner: result['owner'], provider: result['provider'] }
 }
-exports.getNecesidadByID = getNecesidadByID
+
 
 
 /**
@@ -195,15 +147,15 @@ exports.getNecesidadByID = getNecesidadByID
  * @description
  * @returns
  */
-var getAllSolicitudes = async function () {
-    var length = await trContract.methods.getLength().call()
+export var getAllSolicitudes = async function () {
+    var length = await contract.methods.getLength().call()
     console.log(length)
     for (var i = 0; i < length; i++) {
-        var result = await trContract.methods.getNecesidadByID(i).call()
+        var result = await contract.methods.getNecesidadByID(i).call()
         console.log(result)
     }
 }
-exports.getAllSolicitudes = getAllSolicitudes
+
 
 
 /**
@@ -211,13 +163,12 @@ exports.getAllSolicitudes = getAllSolicitudes
  * @description
  * @returns
  */
-var getAllSolicitudesByAddress = async function (address) {
-    var length = await trContract.methods.getLength().call()
+export var getAllSolicitudesByAddress = async function (address) {
+    var length = await contract.methods.getLength().call()
     console.log(length)
     for (var i = 0; i < length; i++) {
-        var result = await trContract.methods.getNecesidadByID(i).call()
+        var result = await contract.methods.getNecesidadByID(i).call()
         if (result.owner === address) console.log(result)
     }
 }
-exports.getAllSolicitudesByAddress = getAllSolicitudesByAddress 
 
