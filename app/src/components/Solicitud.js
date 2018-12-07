@@ -2,42 +2,27 @@ import React, { Component } from 'react';
 import '../css/App.css';
 import * as eth from '../ethereum/ethereumController.js';
 
-
-
 class Solicitud extends Component {
-
 	constructor(props) {
 		super(props)
-		this.state = {solicitudes: 'Default' }
-
+		this.state = { solicitudes: this.props.solicitudes }
 	}
 
-	async componentWillMount(){
-		this.setState({
-			solicitudes: await eth.getAllSolicitudes(),
-	})
-	console.log(typeof(solicitudes))
-}
-
 	render() {
-		console.log("SOLICITUD Component render1: ")
+		console.log("SOLICITUD Component render")
+		var item = this.props.item
 
 		return (
-		
 			<div className="text-white">
-			Solicitud {1} <br></br>
-			ID: {this.state.solicitudes[0].id} <br></br>
-			Info: {this.state.solicitudes[0].info}<br></br>
-			Owner: {this.state.solicitudes[0].owner}<br></br>
-			Provider: {this.state.solicitudes[0].provider}<br></br>
+				Solicitud {item} <br></br>
+				ID: {this.state.solicitudes[item].id} <br></br>
+				Info: {this.state.solicitudes[item].info}<br></br>
+				Owner: {this.state.solicitudes[item].owner}<br></br>
+				Provider: {this.state.solicitudes[item].provider}<br></br>
+
 			</div>
-		
-				
-			
 		)
 	}
 
 }
 export default Solicitud
-
-
