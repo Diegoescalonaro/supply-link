@@ -3,6 +3,7 @@ import '../css/App.css';
 //import * as eth from '../ethereum/ethereumController.js';
 /* React Components */
 import Header from './Header';
+import {Link} from 'react-router-dom';
 
 export default class Solicitud extends Component {
     // constructor(props) {
@@ -16,6 +17,7 @@ export default class Solicitud extends Component {
             <div>
                 <Header></Header>
                 <p>PERFIL</p>
+                <Link to="/home">Back to home</Link>
             </div>
         )
     }
