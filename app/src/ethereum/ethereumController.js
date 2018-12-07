@@ -3,7 +3,7 @@ import { get } from 'https';
 
 /* ABI + ADDRESS */
 export var ABI = require('./ABI.js').default
-export var address = '0xb8d4b1a6f55d766310641637996b59fbc4479441'
+export var address = '0x195a727831ab80300d6515ff9aad5ad7c7aa88f3'
 
 /* WEB3 CREATION */
 var web3 = window.web3
@@ -33,7 +33,7 @@ export var getDefaultAccount = async function () {
 
     const balance = await web3.eth.getBalance(web3.eth.defaultAccount)
     console.log("Balance:", web3.utils.fromWei(balance, "ether"), "eth")
-    return await web3.eth.defaultAccount
+    return await web3.eth.defaultAccount 
 }
 
 /**
@@ -47,7 +47,6 @@ export var solicitar = function (info) {
         if (contract === undefined)
             resolve("You must instantiate the contract.")
         else {
-            console.log(web3.eth.defaultAccount) //TODO: defaultAccount is promise
             //web3.eth.personal.unlockAccount("account","config.ethereum.defaultAccount_pass")
             contract.methods.solicitar(info).send({ from: web3.eth.defaultAccount, gas: 900000 })
                 .then(res => {
@@ -142,10 +141,11 @@ export var getSolicitudByID = async function (numberID) {
 export var getAllSolicitudes = async function () {
     var length = await contract.methods.getLength().call()
     console.log(length)
+    var result = []
     for (var i = 0; i < length; i++) {
-        var result = await contract.methods.getNecesidadByID(i).call()
-        console.log(result)
+        result.push(await contract.methods.getNecesidadByID(i).call())
     }
+    return result
 }
 
 /**
@@ -155,10 +155,12 @@ export var getAllSolicitudes = async function () {
  */
 export var getAllSolicitudesByAddress = async function (address) {
     var length = await contract.methods.getLength().call()
+    var result = []
     console.log(length)
     for (var i = 0; i < length; i++) {
-        var result = await contract.methods.getNecesidadByID(i).call()
-        if (result.owner === address) console.log(result)
+        var solicitud = await contract.methods.getNecesidadByID(i).call()
+        if (result.owner === address) result.push(solicitud)
     }
+    return result
 }
 

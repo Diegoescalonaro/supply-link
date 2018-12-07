@@ -13,10 +13,9 @@ import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 ReactDOM.render(
     <Router>
       <Switch>
-      <Route path="" component={App}/>
-      <Route path="/home" component={App}/>
-      <Route path="/perfil" component={Perfil}/>
-      <Route path="/help" component={App}/>
+      <Route path="/home/" component={App}/>
+      <Route path="/perfil/" component={Perfil}/>
+      <Route path="/help/" component={Perfil}/>
       </Switch>
     </Router>, document.getElementById('root')
 

@@ -4,7 +4,8 @@ import '../css/App.css';
 
 import {
     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
-} from 'reactstrap'
+} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export default class Solicitud extends Component {
     constructor(props) {
