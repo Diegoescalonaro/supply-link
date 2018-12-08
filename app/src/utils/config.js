@@ -1,4 +1,6 @@
-export default config ={
+var config ={
     network: "Kovan",
     
+    
 }
+export default config
