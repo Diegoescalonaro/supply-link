@@ -1,6 +1,6 @@
 var config ={
     network: 'Kovan',
-    smartcontractaddress: '0x195a727831ab80300d6515ff9aad5ad7c7aa88f3',
+    smartcontractaddress: '0x7e8ca31d78cad7d8e51078acdf91e04c76ca8457',
     
     
     
