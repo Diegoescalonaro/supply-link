@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import '../css/App.css';
+import '../styles/App.css';
 //import * as eth from '../ethereum/ethereumController.js';
 
 import {
     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 export default class Solicitud extends Component {
     constructor(props) {
