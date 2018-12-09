@@ -1,41 +1,39 @@
 import React, { Component } from 'react';
 /* Import css style */
 import 'bootstrap/dist/css/bootstrap.css';
-import '../css/App.css';
-import ethereumsvg from '../utils/ethereum.svg';
+import '../styles/App.css';
+import ethereumsvg from '../images/ethereum.svg';
 /* Util */
-import initWeb3 from './initWeb3';
+import initWeb3 from '../utils/initWeb3';
 import * as eth from '../ethereum/ethereumController.js';
+import config from '../config';
 /* React Components */
 import { Button } from 'reactstrap';
 import Solicitudes from './Solicitudes';
 import Header from './Header';
-
+import Footer from './Footer';
 
 class App extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { web3: '', defaultAccount: '0x0', contract: '', contractaddress: '0x0', solicitudes: '' }
+		this.state = { web3: '', defaultaccount: '0x0', contract: '', contractaddress: '0x0', solicitudes: '' }
 	}
 
 	async componentWillMount() {
-		console.log("SOLICITUD componentWillMount 1111111")
 		this.setState({
 			web3: await eth.web3,
-			defaultAccount: await eth.getDefaultAccount(),
+			defaultaccount: await eth.getDefaultAccount(),
 			contract: await eth.contract,
 			contractaddress: await eth.address,
 			solicitudes: await eth.getAllSolicitudes()
 		})
-		console.log("SOLICITUD componentWillMount 22222222")
-		console.log(this.state.solicitudes)
 	}
 
 	start() {
 		var web3 = initWeb3();
-		var defaultAccount = web3.currentProvider.selectedAddress;
+		var defaultaccount = web3.currentProvider.selectedAddress;
 		this.setState({
-			defaultAccount: defaultAccount,
+			defaultaccount: defaultaccount,
 			web3: web3
 		})
 	}
@@ -55,9 +53,8 @@ class App extends Component {
 			this.setState({
 				solicitudes: x
 			})
+			console.log(x)
 		})
-
-		console.log(this.state.solicitudes)
 
 	}
 
@@ -66,43 +63,63 @@ class App extends Component {
 		console.log(x)
 	}
 
+	// watchEvents(){
+	// 	// TODO: trigger
+	// 	this.state.contract.events.NuevaSolicitud({}, function (error, event) {
+	// 		console.log("EVENTO-----------")
+	// 		if (event !== undefined && event.event === "NuevaSolicitud") {
+	// 			console.log(event.returnValues)
+	// 		}
+	// 	})
+	// }
+
+	async componentDidMount() {
+		if (this.state.contract.events !== undefined) {
+			this.watchEvents()
+		}
+	}
+
 	render() {
+		console.log("* * Component APP Render * *")
+		// console.log(this.web3)
+		var etherscanaccount = `https://${config.network}.etherscan.io/address/${this.state.defaultaccount}`
+		var etherscancontract = `https://${config.network}.etherscan.io/address/${this.state.contractaddress}`
+
+
 		return (
 			<div className="App">
-
-				<Header></Header>
+				<Header />
 
 				<header className="App-header">
-					<h2>TFG  <code></code></h2>
-					<a className="text-white">Default Account (Metamask): {this.state.defaultAccount}</a>
-					<a className="text-white">Smart Contract: {this.state.contractaddress}</a>
-
-					<img src={ethereumsvg} className="App-logo" alt="logo" />
-
-					<Button className="aa" color="danger" onClick={e => this.start()}>Start</Button>
-
-					<input className="input" ref="input" type="text" ></input>
-
-					<Button className="aa" color="primary" onClick={e => this.solicitar(this.refs.input.value)}> SOLICITAR</Button>
-
-					<Button className="aa" color="secondary" onClick={e => this.getSolicitudByID(this.refs.input.value)}> getSolicitudByID</Button>
-
-					<Button className="aa" color="secondary" onClick={e => this.getAllSolicitudes()}> getAllSolicitudes</Button>
-
-					<Button className="aa" color="secondary" onClick={e => this.getAllSolicitudesByAddress(this.refs.input.value)}> getAllSolicitudesByAddress</Button>
-
-				</header>
-
-				<div className="App-body">
-
 					<h1 className="text-white">Welcome to the DAPP!</h1>
-					<br></br>
+					<hr className="my-2" />
+					<div>
+						<p className="text-white" >Default Account (Metamask):	<a href={etherscanaccount}>{this.state.defaultaccount}></a></p>
+						<p className="text-white" >Smart Contract: <a href={etherscancontract}>{this.state.contractaddress}</a></p>
+					</div>
+					<Button className="button" color="danger" onClick={e => this.start()}>Restart</Button>
+				</header>
+				{this.state.solicitudes ?
+					<div className="App-body">
+						<input className="input" ref="input" type="text" ></input>
+						<div>
+							<Button className="button" color="primary" onClick={e => this.solicitar(this.refs.input.value)}> SOLICITAR</Button>
+							<Button className="button" color="secondary" onClick={e => this.getSolicitudByID(this.refs.input.value)}> getSolicitudByID</Button>
+							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudes()}> getAllSolicitudes</Button>
+							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudesByAddress(this.refs.input.value)}> getAllSolicitudesByAddress</Button>
+						</div>
 
-					{this.state.solicitudes &&
-						<Solicitudes solicitudes={this.state.solicitudes}></Solicitudes>
-					}
+						{this.state.solicitudes &&
+							<Solicitudes solicitudes={this.state.solicitudes} action="CUBRIR"></Solicitudes>
+						}
+						<Footer />
+					</div>
 
-				</div>
+					: <div>
+						<img src={ethereumsvg} className="App-logo" alt="logo" /><h2>Cargando...</h2>
+					</div>
+				}
+
 			</div>
 		);
 	}

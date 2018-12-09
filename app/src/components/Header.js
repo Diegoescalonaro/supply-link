@@ -22,35 +22,35 @@ export default class Solicitud extends Component {
     }
 
     render() {
-        console.log("Header render")
+        console.log("* * Component HEADER Render * *")
 
         return (
             <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">SUPPLY LINK</NavbarBrand>
+                <NavbarBrand className="nav-item-text" href="/">SUPPLY LINK</NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink href="/home/">Home</NavLink>
+                            <NavLink className="nav-item-text" href="/home/">Home</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/perfil/">Perfil</NavLink>
+                            <NavLink className="nav-item-text" href="/perfil/">Perfil</NavLink>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
-                            <DropdownToggle nav caret>
+                            <DropdownToggle className="nav-item-text" nav caret>
                                 Options
-                </DropdownToggle>
+                            </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem>
                                     Option 1
-                  </DropdownItem>
+                            </DropdownItem>
                                 <DropdownItem>
                                     Option 2
-                  </DropdownItem>
+                            </DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem>
                                     Reset
-                  </DropdownItem>
+                            </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
                     </Nav>
