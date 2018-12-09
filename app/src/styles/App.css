@@ -1,22 +1,27 @@
-.App {
-  text-align: center;
-}
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+  animation: App-logo-spin infinite 3s linear;
+  height: 60vmin;
+  position:absolute;
+  top:50%;
+  left:25%;
+}
+.nav-item-text{
+font-size:120%;
 }
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 40vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(0.4vw + 0.3vh + 2vmin);
   color: white;
+  line-height: 70%;
 }
 .App-body{
-  background-color: #191c22;
+  text-align:center;
+  background-color:rgb(33, 33, 37);
 }
 .App-link {
   color: #61dafb;
@@ -29,19 +34,78 @@
   font-size:120%;
 }
 .div-solicitudes{
-  margin-top:20px;
+  padding:2%;
+  margin-right:10%;
+  margin-left:10%;
+  margin-top:10px;
+  margin-bottom:10px;
+  line-height: 100%;
   display:flex;
   flex-direction:row;
   text-align:center;
-  border-width: 2px;
-  border-color:white;
+  align-items:center;
+  justify-content:center;
+  border-style:outset;
+  border-color:rgba(109, 104, 104, 0.555);
+  
+}
+.div-solicitud{
+  color:white;
+  width:70%;
+  text-align:left;
+  
+}
+.div-solicitud .h4{
+  font-weight:800;
+}
+.div-solicitud .lead{
+  font-size: calc(0.4vw + 0.3vh + 2vmin);
+  font-weight:500;
+
+}
+.div-solicitud i{
+  color:rgba(62, 190, 62, 0.911);
+}
+.button { 
+  font-size: calc(5px + 2vmin);
+  font-weight:900;
+}
+.button-cubrir{
+  width:15%;
+  margin-right:5%;
+  padding-top:10px;
+  padding-bottom:10px;
+  font-size:110%;
+  font-weight:900;
+}
+.my-2{
+  height:5px;
+  width:25%;
+  border-color:rgba(255, 255, 255, 0.555);
+}
+
+.profile-data{
+  padding:10%;
+}
+.profile-data .h4{
+  color:white;
+  font-size: calc(0.4vw + 0.3vh + 2vmin);
+  line-height: 70%;
+}
+
+.link{
+  font-size: calc(0.4vw + 0.3vh + 2vmin);
+  font-size:130%;
+}
+
+.footer{
+  text-align: center;
+  color:whitesmoke;
+  background-color:#282c34;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  0% {transform: rotate(-50deg); left:30%}
+  50% {left:50%}
+  100% {transform: rotate(50deg); left:65%}
 }
