@@ -1,9 +1,9 @@
 import Web3 from 'web3';
-import { get } from 'https';
+import config from '../config';
 
 /* ABI + ADDRESS */
 export var ABI = require('./ABI.js').default
-export var address = '0x195a727831ab80300d6515ff9aad5ad7c7aa88f3'
+export var address = config.smartcontractaddress
 
 /* WEB3 CREATION */
 var web3 = window.web3
@@ -24,6 +24,28 @@ console.log(web3)
 /* CONTRACT IMPLEMENTATION */
 export var contract = new web3.eth.Contract(ABI, address);
 console.log(contract)
+console.log("DEBUGGING")
+
+/* HANDLING BLOCKCHAIN EVENTS */
+// contract.events.NuevaSolicitud({}, function(error,event){
+//     console.log("EVENTO-----------")
+//     if(event !== undefined && event.event === "NuevaSolicitud"){
+//         console.log(event.returnValues)
+//     }
+// })
+// contract.events.SolicitudCubierta({}, function(error,event){
+//     console.log("EVENTO-----------")
+//     if(event !== undefined && event.event === "SolicitudCubierta"){
+//         console.log(event)
+//     }
+// })
+// contract.events.SolicitudValidada({}, function(error,event){
+//     console.log("EVENTO-----------")
+//     if(event !== undefined && event.event === "SolicitudValidada"){
+//         console.log(event.returnValues)
+//     }
+// })
+
 
 // Default account settings
 export var getDefaultAccount = async function () {
@@ -47,7 +69,6 @@ export var solicitar = function (info) {
         if (contract === undefined)
             resolve("You must instantiate the contract.")
         else {
-            //web3.eth.personal.unlockAccount("account","config.ethereum.defaultAccount_pass")
             contract.methods.solicitar(info).send({ from: web3.eth.defaultAccount, gas: 900000 })
                 .then(res => {
                     // will be fired once the receipt its mined
@@ -64,16 +85,6 @@ export var solicitar = function (info) {
 }
 
 
-export var solicitarAsync = async function (info) {
-    try {
-        var x = await solicitar(info)
-        console.log(x)
-    } catch (e) {
-        console.log(e)
-
-    }
-}
-
 /**
  * @function cubrir
  * @param numberID {Number}
@@ -82,7 +93,6 @@ export var solicitarAsync = async function (info) {
  */
 export var cubrir = function (numberID) {
     let thePromise = new Promise((resolve, reject) => {
-        //web3.eth.personal.unlockAccount("account","config.ethereum.defaultAccount_pass")
         contract.methods.cubrir(numberID).send({ from: web3.eth.defaultAccount, gas: 900000 })  //TODO: PARAMETROS
             .then(res => {
                 // will be fired once the receipt its mined
@@ -106,7 +116,6 @@ export var cubrir = function (numberID) {
  */
 export var validar = function (numberID, state) {
     let thePromise = new Promise((resolve, reject) => {
-        //web3.eth.personal.unlockAccount("account","config.ethereum.defaultAccount_pass")
         contract.methods.validar(numberID, state).send({ from: web3.eth.defaultAccount, gas: 900000 })
             .then(res => {
                 // will be fired once the receipt its mined
@@ -140,10 +149,12 @@ export var getSolicitudByID = async function (numberID) {
  */
 export var getAllSolicitudes = async function () {
     var length = await contract.methods.getLength().call()
-    console.log(length)
     var result = []
     for (var i = 0; i < length; i++) {
-        result.push(await contract.methods.getNecesidadByID(i).call())
+        var solicitud = await contract.methods.getNecesidadByID(i).call()
+        if (solicitud.info !== '') {
+            result.push(solicitud)
+        }
     }
     return result
 }
@@ -156,10 +167,11 @@ export var getAllSolicitudes = async function () {
 export var getAllSolicitudesByAddress = async function (address) {
     var length = await contract.methods.getLength().call()
     var result = []
-    console.log(length)
     for (var i = 0; i < length; i++) {
         var solicitud = await contract.methods.getNecesidadByID(i).call()
-        if (result.owner === address) result.push(solicitud)
+        if (solicitud.owner === address) {
+            result.push(solicitud)
+        }
     }
     return result
 }
