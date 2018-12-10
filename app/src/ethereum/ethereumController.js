@@ -55,7 +55,7 @@ export var getDefaultAccount = async function () {
 
     const balance = await web3.eth.getBalance(web3.eth.defaultAccount)
     console.log("Balance:", web3.utils.fromWei(balance, "ether"), "eth")
-    return await web3.eth.defaultAccount 
+    return await web3.eth.defaultAccount
 }
 
 /**
@@ -64,12 +64,12 @@ export var getDefaultAccount = async function () {
  * @description 
  * @returns {Promise}
  */
-export var solicitar = function (info) {
+export var solicitar = function (info, price) {
     var thePromise = new Promise((resolve, reject) => {
         if (contract === undefined)
             resolve("You must instantiate the contract.")
         else {
-            contract.methods.solicitar(info).send({ from: web3.eth.defaultAccount, gas: 900000 })
+            contract.methods.solicitar(info,price).send({ from: web3.eth.defaultAccount})
                 .then(res => {
                     // will be fired once the receipt its mined
                     //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
@@ -93,7 +93,7 @@ export var solicitar = function (info) {
  */
 export var cubrir = function (numberID) {
     let thePromise = new Promise((resolve, reject) => {
-        contract.methods.cubrir(numberID).send({ from: web3.eth.defaultAccount, gas: 900000 })  //TODO: PARAMETROS
+        contract.methods.cubrir(numberID).send({ from: web3.eth.defaultAccount})  //TODO: PARAMETROS
             .then(res => {
                 // will be fired once the receipt its mined
                 //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
@@ -113,10 +113,33 @@ export var cubrir = function (numberID) {
  * @param state {Boolean}
  * @description 
  * @returns {Promise}
- */
-export var validar = function (numberID, state) {
+ */ //TODO: INCLUIR EL PRECIO ----------------------------
+export var validar = function (numberID, price) {
     let thePromise = new Promise((resolve, reject) => {
-        contract.methods.validar(numberID, state).send({ from: web3.eth.defaultAccount, gas: 900000 })
+        contract.methods.validar(numberID).send({ from: web3.eth.defaultAccount, value: price })
+            .then(res => {
+                // will be fired once the receipt its mined
+                //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
+                resolve(res)
+            })
+            .catch(err => {
+                //logger.error(err.message)
+                reject(err.message)
+            })
+    })
+    return thePromise
+}
+
+/**
+ * @function cancelar
+ * @param numberID {Number}
+ * @param delete {Boolean}
+ * @description 
+ * @returns {Promise}
+ */
+export var cancelar = function (numberID) {
+    let thePromise = new Promise((resolve, reject) => {
+        contract.methods.cancelar(numberID).send({ from: web3.eth.defaultAccount })
             .then(res => {
                 // will be fired once the receipt its mined
                 //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
@@ -138,6 +161,7 @@ export var validar = function (numberID, state) {
  * @returns {Promise}
  */
 export var getSolicitudByID = async function (numberID) {
+    console.log(numberID)
     var result = await contract.methods.getNecesidadByID(numberID).call()
     return { info: result['info'], owner: result['owner'], provider: result['provider'] }
 }
