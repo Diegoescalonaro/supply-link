@@ -5,6 +5,24 @@ var platformABI = [
 			{
 				"name": "_numberID",
 				"type": "uint256"
+			},
+			{
+				"name": "_delete",
+				"type": "bool"
+			}
+		],
+		"name": "cancelar",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_numberID",
+				"type": "uint256"
 			}
 		],
 		"name": "cubrir",
@@ -19,6 +37,10 @@ var platformABI = [
 			{
 				"name": "_info",
 				"type": "string"
+			},
+			{
+				"name": "_price",
+				"type": "uint256"
 			}
 		],
 		"name": "solicitar",
@@ -33,16 +55,12 @@ var platformABI = [
 			{
 				"name": "_numberID",
 				"type": "uint256"
-			},
-			{
-				"name": "_state",
-				"type": "bool"
 			}
 		],
 		"name": "validar",
 		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
+		"payable": true,
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -66,6 +84,11 @@ var platformABI = [
 			},
 			{
 				"indexed": false,
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
 				"name": "owner",
 				"type": "address"
 			}
@@ -85,6 +108,11 @@ var platformABI = [
 				"indexed": false,
 				"name": "info",
 				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "price",
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
@@ -115,16 +143,43 @@ var platformABI = [
 			},
 			{
 				"indexed": false,
-				"name": "owner",
-				"type": "address"
+				"name": "price",
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
-				"name": "status",
-				"type": "bool"
+				"name": "owner",
+				"type": "address"
 			}
 		],
 		"name": "SolicitudValidada",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "info",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "SolicitudCancelada",
 		"type": "event"
 	},
 	{
@@ -158,6 +213,10 @@ var platformABI = [
 			{
 				"name": "info",
 				"type": "string"
+			},
+			{
+				"name": "price",
+				"type": "uint256"
 			},
 			{
 				"name": "owner",
