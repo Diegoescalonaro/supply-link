@@ -45,8 +45,13 @@ class App extends Component {
 	}
 
 	async getSolicitudByID(_id) {
-		var x = await eth.getSolicitudByID(_id)
-		console.log(x)
+		console.log(_id)
+		eth.getSolicitudByID(_id).then(x => {
+			this.setState({
+				solicitudes: x
+			})
+			console.log(x)
+		})
 	}
 
 	async getAllSolicitudes() {
@@ -60,8 +65,12 @@ class App extends Component {
 	}
 
 	async getAllSolicitudesByAddress(_address) {
-		var x = await eth.getAllSolicitudesByAddress(_address)
-		console.log(x)
+		eth.getAllSolicitudesByAddress(_address).then(x => {
+			this.setState({
+				solicitudes: x
+			})
+			console.log(x)
+		})
 	}
 
 	// watchEvents(){
@@ -86,6 +95,7 @@ class App extends Component {
 		var etherscanaccount = `https://${config.network}.etherscan.io/address/${this.state.defaultaccount}`
 		var etherscancontract = `https://${config.network}.etherscan.io/address/${this.state.contractaddress}`
 
+		//TODO: ERROR Please pass numbers as strings or BigNumber objects to avoid precision errors.
 
 		return (
 			<div className="App">
@@ -102,13 +112,18 @@ class App extends Component {
 				</header>
 				{this.state.solicitudes ?
 					<div className="App-body">
-						<input className="input" ref="product" type="text" ></input>
-						<input className="input" ref="price" type="number" ></input>
 						<div>
+							<input className="input" ref="product" type="text"></input>
+							<input className="input" id="input2" ref="price" type="number"></input>
 							<Button className="button" color="primary" onClick={e => this.solicitar(this.refs.product.value, this.refs.price.value)}> SOLICITAR</Button>
-							<Button className="button" color="secondary" onClick={e => this.getSolicitudByID(this.refs.input.value)}> getSolicitudByID</Button>
+						</div>
+						<div>
+							<br></br>
+							<input className="input" id="input3" ref="search"></input>
+							<br></br>
+							<Button className="button" color="secondary" onClick={e => this.getSolicitudByID(this.refs.search.value)}> getSolicitudByID</Button>
 							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudes()}> getAllSolicitudes</Button>
-							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudesByAddress(this.refs.input.value)}> getAllSolicitudesByAddress</Button>
+							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudesByAddress(this.refs.search.value)}> getAllSolicitudesByAddress</Button>
 						</div>
 
 						{this.state.solicitudes &&
