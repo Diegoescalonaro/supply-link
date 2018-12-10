@@ -38,8 +38,9 @@ class App extends Component {
 		})
 	}
 
-	async solicitar(_info) {
-		var x = await eth.solicitar(_info)
+	async solicitar(_info, _price) {
+		console.log(this.state.web3.utils.toWei(_price))
+		var x = await eth.solicitar(_info, this.state.web3.utils.toWei(_price))
 		console.log(x)
 	}
 
@@ -101,9 +102,10 @@ class App extends Component {
 				</header>
 				{this.state.solicitudes ?
 					<div className="App-body">
-						<input className="input" ref="input" type="text" ></input>
+						<input className="input" ref="product" type="text" ></input>
+						<input className="input" ref="price" type="number" ></input>
 						<div>
-							<Button className="button" color="primary" onClick={e => this.solicitar(this.refs.input.value)}> SOLICITAR</Button>
+							<Button className="button" color="primary" onClick={e => this.solicitar(this.refs.product.value, this.refs.price.value)}> SOLICITAR</Button>
 							<Button className="button" color="secondary" onClick={e => this.getSolicitudByID(this.refs.input.value)}> getSolicitudByID</Button>
 							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudes()}> getAllSolicitudes</Button>
 							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudesByAddress(this.refs.input.value)}> getAllSolicitudesByAddress</Button>
