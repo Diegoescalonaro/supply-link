@@ -225,6 +225,10 @@ var platformABI = [
 			{
 				"name": "provider",
 				"type": "address"
+			},
+			{
+				"name": "state",
+				"type": "uint8"
 			}
 		],
 		"payable": false,
