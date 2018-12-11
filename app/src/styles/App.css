@@ -89,13 +89,18 @@ font-size:120%;
   font-size:110%;
   font-weight:900;
 }
+
+.img-state{
+  align-self:auto;
+  width:100%;
+}
 .my-2{
   height:5px;
   width:25%;
   border-color:rgba(255, 255, 255, 0.555);
 }
-
 .profile-data{
+  text-align: left;
   padding:10%;
 }
 .profile-data .h4{
