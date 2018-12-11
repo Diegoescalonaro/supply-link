@@ -69,7 +69,7 @@ export var solicitar = function (info, price) {
         if (contract === undefined)
             resolve("You must instantiate the contract.")
         else {
-            contract.methods.solicitar(info,price).send({ from: web3.eth.defaultAccount})
+            contract.methods.solicitar(info, price).send({ from: web3.eth.defaultAccount })
                 .then(res => {
                     // will be fired once the receipt its mined
                     //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
@@ -93,7 +93,7 @@ export var solicitar = function (info, price) {
  */
 export var cubrir = function (numberID) {
     let thePromise = new Promise((resolve, reject) => {
-        contract.methods.cubrir(numberID).send({ from: web3.eth.defaultAccount})  //TODO: PARAMETROS
+        contract.methods.cubrir(numberID).send({ from: web3.eth.defaultAccount })  //TODO: PARAMETROS
             .then(res => {
                 // will be fired once the receipt its mined
                 //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
@@ -113,7 +113,7 @@ export var cubrir = function (numberID) {
  * @param state {Boolean}
  * @description 
  * @returns {Promise}
- */ //TODO: INCLUIR EL PRECIO ----------------------------
+ */
 export var validar = function (numberID, price) {
     let thePromise = new Promise((resolve, reject) => {
         contract.methods.validar(numberID).send({ from: web3.eth.defaultAccount, value: price })
@@ -174,7 +174,7 @@ export var getSolicitudByID = async function (numberID) {
 export var getAllSolicitudes = async function () {
     var length = await contract.methods.getLength().call()
     var result = []
-    for (var i = 0; i < length; i++) {
+    for (var i = length - 1; i >= 0; i--) {
         var solicitud = await contract.methods.getNecesidadByID(i).call()
         if (solicitud.info !== '') {
             result.push(solicitud)
@@ -191,7 +191,7 @@ export var getAllSolicitudes = async function () {
 export var getAllSolicitudesByAddress = async function (address) {
     var length = await contract.methods.getLength().call()
     var result = []
-    for (var i = 0; i < length; i++) {
+    for (var i = length - 1; i >= 0; i--) {
         var solicitud = await contract.methods.getNecesidadByID(i).call()
         if (solicitud.owner === address) {
             result.push(solicitud)
