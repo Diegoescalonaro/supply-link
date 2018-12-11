@@ -28,6 +28,12 @@ class Solicitudes extends Component {
 		alert(x)
 	}
 
+	async cancelar(_id) {
+		var x = await eth.cancelar(_id, false)
+		console.log(x)
+		alert(x)
+	}
+
 	render() {
 		console.log("* * Component Solicitudes Render * *")
 		console.log(this.props.solicitudes)
@@ -41,7 +47,8 @@ class Solicitudes extends Component {
 						{(this.props.action === "CUBRIR") ? <Button className="button-cubrir" color="primary" onClick={e => this.cubrir(this.props.solicitudes[item].id)}>{this.props.action}</Button>
 							: <div>
 								<Button color="success" onClick={e => this.validar(this.props.solicitudes[item].id, this.props.solicitudes[item].price)}>{this.props.action}</Button>
-								<Button color="danger" onClick={e => this.cancelar(this.props.solicitudes[item].id)}>ELIMINAR</Button>
+								<Button color="warning" onClick={e => this.cancelar(this.props.solicitudes[item].id)}>CANCELAR</Button>
+								<Button color="danger" onClick={e => this.eliminar(this.props.solicitudes[item].id)}>ELIMINAR</Button>
 							</div>}
 					</div>
 				))}

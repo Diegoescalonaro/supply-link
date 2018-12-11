@@ -27,12 +27,18 @@ console.log(contract)
 console.log("DEBUGGING")
 
 /* HANDLING BLOCKCHAIN EVENTS */
-// contract.events.NuevaSolicitud({}, function(error,event){
-//     console.log("EVENTO-----------")
-//     if(event !== undefined && event.event === "NuevaSolicitud"){
-//         console.log(event.returnValues)
-//     }
-// })
+export var getEvent = async function () {
+    var thePromise = new Promise((resolve, reject) => {
+        contract.events.allEvents({}, function (error, event) {
+            console.log("EVENTO-----------")
+            if (event !== undefined) {
+                console.log(event.returnValues)
+                resolve(event.returnValues)
+            }
+        })
+    })
+    return thePromise
+}
 // contract.events.SolicitudCubierta({}, function(error,event){
 //     console.log("EVENTO-----------")
 //     if(event !== undefined && event.event === "SolicitudCubierta"){
@@ -137,9 +143,9 @@ export var validar = function (numberID, price) {
  * @description 
  * @returns {Promise}
  */
-export var cancelar = function (numberID) {
+export var cancelar = function (numberID, bool) {
     let thePromise = new Promise((resolve, reject) => {
-        contract.methods.cancelar(numberID).send({ from: web3.eth.defaultAccount })
+        contract.methods.cancelar(numberID, bool).send({ from: web3.eth.defaultAccount })
             .then(res => {
                 // will be fired once the receipt its mined
                 //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)

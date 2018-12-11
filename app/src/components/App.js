@@ -20,6 +20,7 @@ class App extends Component {
 	}
 
 	async componentWillMount() {
+		console.log("* * COMPONENT WILL MOUNT ")
 		this.setState({
 			web3: await eth.web3,
 			defaultaccount: await eth.getDefaultAccount(),
@@ -73,20 +74,14 @@ class App extends Component {
 		})
 	}
 
-	// watchEvents(){
-	// 	// TODO: trigger
-	// 	this.state.contract.events.NuevaSolicitud({}, function (error, event) {
-	// 		console.log("EVENTO-----------")
-	// 		if (event !== undefined && event.event === "NuevaSolicitud") {
-	// 			console.log(event.returnValues)
-	// 		}
-	// 	})
-	// }
 
-	async componentDidMount() {
-		if (this.state.contract.events !== undefined) {
-			this.watchEvents()
-		}
+	 async componentDidUpdate() {
+		console.log(" * * Component Did UPDATE * *")
+		eth.getEvent().then(event => {
+			console.log("- - ComponentdidMount EVENTTTTT - - ")
+			this.getAllSolicitudes()
+		})
+
 	}
 
 	render() {

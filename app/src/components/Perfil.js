@@ -49,6 +49,16 @@ export default class Perfil extends Component {
         })
     }
 
+    async componentDidUpdate() {
+		console.log(" * * Component Did UPDATE * *")
+		eth.getEvent().then(event => {
+			console.log("- - ComponentdidMount EVENTTTTT - - ")
+			this.getAllMySolicitudes()
+        })
+    }
+
+
+
     render() {
         var etherscanaccount = `https://${config.network}.etherscan.io/address/${this.state.defaultaccount}`
         var etherscancontract = `https://${config.network}.etherscan.io/address/${this.state.contractaddress}`
@@ -65,6 +75,7 @@ export default class Perfil extends Component {
                 }
                 {this.state.data ?
                     <div className="profile-data">
+                        <p className="h4" >Ethereum network: <a href={"https://kovan.etherscan.io/"}>  {config.network}</a></p>
                         <p className="h4" >Default Account (Metamask):	<a href={etherscanaccount}>{this.state.defaultaccount}></a></p>
                         <p className="h4" >Smart Contract: <a href={etherscancontract}>{this.state.contractaddress}</a></p>
                     </div>

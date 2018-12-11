@@ -10,9 +10,6 @@ class Solicitud extends Component {
 	render() {
 		console.log("* * Component SOLICITUD Render * *")
 		var item = this.props.item
-
-		console.log("state"+this.props.solicitudes[item].state)
-
 		return (
 			<div className="div-solicitud">
 				<p className="h4"> · Solicitud ID: {this.props.solicitudes[item].id} </p>
