@@ -22,8 +22,7 @@ export default class Perfil extends Component {
         }
     }
 
-
-    async componentDidMount() {
+    async componentWillMount() {
         this.setState({
             defaultaccount: await eth.getDefaultAccount(),
             contractaddress: eth.address,
@@ -31,8 +30,15 @@ export default class Perfil extends Component {
         this.getAllMySolicitudes()
     }
 
+    async componentDidUpdate() {
+		console.log(" * * Component Did UPDATE * *")
+		eth.getEvent().then(event => {
+			console.log("- - ComponentdidMount EVENTTTTT - - ")
+			this.getAllMySolicitudes()
+        })
+    }
+
     async getAllMySolicitudes() {
-        console.log(this.state.defaultaccount)
         eth.getAllSolicitudesByAddress(this.state.defaultaccount).then(result => {
             this.setState({
                 solicitudes: result,
@@ -48,16 +54,6 @@ export default class Perfil extends Component {
             data: true
         })
     }
-
-    async componentDidUpdate() {
-		console.log(" * * Component Did UPDATE * *")
-		eth.getEvent().then(event => {
-			console.log("- - ComponentdidMount EVENTTTTT - - ")
-			this.getAllMySolicitudes()
-        })
-    }
-
-
 
     render() {
         var etherscanaccount = `https://${config.network}.etherscan.io/address/${this.state.defaultaccount}`

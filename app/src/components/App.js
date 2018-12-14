@@ -30,6 +30,15 @@ class App extends Component {
 		})
 	}
 
+	async componentDidUpdate() {
+		console.log(" * * Component Did UPDATE * *")
+		eth.getEvent().then(event => {
+			console.log("- - ComponentdidMount EVENTTTTT - - ")
+			this.getAllSolicitudes()
+		})
+
+	}
+
 	start() {
 		var web3 = initWeb3();
 		var defaultaccount = web3.currentProvider.selectedAddress;
@@ -72,16 +81,6 @@ class App extends Component {
 			})
 			console.log(x)
 		})
-	}
-
-
-	 async componentDidUpdate() {
-		console.log(" * * Component Did UPDATE * *")
-		eth.getEvent().then(event => {
-			console.log("- - ComponentdidMount EVENTTTTT - - ")
-			this.getAllSolicitudes()
-		})
-
 	}
 
 	render() {
