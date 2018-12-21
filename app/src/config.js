@@ -1,5 +1,5 @@
 var config ={
-    network: 'Kovan',
+    network: 'Rinkeby',
     smartcontractaddress: '0x96D1374D24D90FaEb11413365D28482a26C63791',   
 }
 
