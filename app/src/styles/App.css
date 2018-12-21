@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Allerta+Stencil|Copse');
+
 .App-logo {
   animation: App-logo-spin infinite 3s linear;
   height: 60vmin;
@@ -9,7 +11,7 @@
 font-size:120%;
 }
 .App-header {
-  background-color: #282c34;
+  background-color: #2a3a4b;
   min-height: 40vh;
   display: flex;
   flex-direction: column;
@@ -21,13 +23,25 @@ font-size:120%;
 }
 .App-body{
   text-align:center;
-  background-color:rgb(33, 33, 37);
+  background-color:rgb(218, 218, 218);
 }
 .App-link {
   color: #61dafb;
 }
+.tittle{
+  font-family: 'Allerta Stencil';
+  font-size:300%;
+}
+.subtittle{
+  text-align:center;
+  font-family:'Copse';
+  margin-right:10%;
+  margin-left:10%;
+  line-height:100%;
+}
+
 .text-white{
-  color:white;
+  color:rgb(0, 0, 0);
 }
 .input{
   width:500px;
@@ -56,10 +70,11 @@ font-size:120%;
   justify-content:center;
   border-style:outset;
   border-color:rgba(109, 104, 104, 0.555);
-  
+  background-color:rgb(241, 105, 105);
 }
+
 .div-solicitud{
-  color:white;
+  color:black;
   width:70%;
   text-align:left;
   
@@ -73,7 +88,7 @@ font-size:120%;
 
 }
 .div-solicitud i{
-  color:rgba(62, 190, 62, 0.911);
+  color:rgb(0, 0, 0);
 }
 .button { 
   font-size: calc(5px + 2vmin);

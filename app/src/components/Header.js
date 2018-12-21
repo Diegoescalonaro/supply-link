@@ -31,7 +31,7 @@ export default class Solicitud extends Component {
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink className="nav-item-text" href="/home/">Home</NavLink>
+                            <NavLink className="nav-item-text" href="/home/">Solicitudes</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink className="nav-item-text" href="/perfil/">Perfil</NavLink>

@@ -96,7 +96,8 @@ class App extends Component {
 				<Header />
 
 				<header className="App-header">
-					<h1 className="text-white">Welcome to the DAPP!</h1>
+					<h1 className="tittle">Supply-Link</h1>
+					<p className="subtittle"> Plataforma que conecta cliente con proveedor, a traves de la automaticación de las necesidades del cliente.</p>
 					<hr className="my-2" />
 					<div>
 						<p className="text-white" >Default Account (Metamask):	<a href={etherscanaccount}>{this.state.defaultaccount}></a></p>
