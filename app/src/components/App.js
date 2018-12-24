@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/App.css';
 import ethereumsvg from '../images/ethereum.svg';
+import supply from '../images/supply.svg';
 /* Util */
 import initWeb3 from '../utils/initWeb3';
 import * as eth from '../ethereum/ethereumController.js';
@@ -99,14 +100,22 @@ class App extends Component {
 					<h1 className="tittle">Supply-Link</h1>
 					<p className="subtittle"> Plataforma que conecta cliente con proveedor, a traves de la automaticación de las necesidades del cliente.</p>
 					<hr className="my-2" />
+					<img className="image-supply" src={supply} alt="Supply" />
+					<hr className="my-2" />
+					<p className="subtittle"> Solicita tus necesidades a un proveedor</p>
+					<p className="subtittle"> Cubre necesidades de un cliente</p>
+					<p className="subtittle"> Valida el proceso</p>
+					<hr className="my-2" />
+					<br></br>
 					<div>
-						<p className="text-white" >Default Account (Metamask):	<a href={etherscanaccount}>{this.state.defaultaccount}></a></p>
-						<p className="text-white" >Smart Contract: <a href={etherscancontract}>{this.state.contractaddress}</a></p>
-					</div>
+							<p className="text-white">Default Account (Metamask):	<a href={etherscanaccount}>{this.state.defaultaccount}></a></p>
+							<p className="text-white">Smart Contract: <a href={etherscancontract}>{this.state.contractaddress}</a></p>
+						</div>
 					<Button className="button" color="danger" onClick={e => this.start()}>Restart</Button>
 				</header>
 				{this.state.solicitudes ?
 					<div className="App-body">
+
 						<div>
 							<input className="input" ref="product" type="text"></input>
 							<input className="input" id="input2" ref="price" type="number"></input>

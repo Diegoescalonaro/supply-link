@@ -23,14 +23,14 @@ font-size:120%;
 }
 .App-body{
   text-align:center;
-  background-color:rgb(218, 218, 218);
+  background-color:#2a3a4b13;
 }
 .App-link {
   color: #61dafb;
 }
 .tittle{
   font-family: 'Allerta Stencil';
-  font-size:300%;
+  font-size:400%;
 }
 .subtittle{
   text-align:center;
@@ -69,12 +69,12 @@ font-size:120%;
   align-items:center;
   justify-content:center;
   border-style:outset;
-  border-color:rgba(109, 104, 104, 0.555);
-  background-color:rgb(241, 105, 105);
+  border-color:rgba(190, 182, 182, 0.555);
+  background-color:#705b60ec;
 }
 
 .div-solicitud{
-  color:black;
+  color:#ffffff;
   width:70%;
   text-align:left;
   
@@ -88,7 +88,7 @@ font-size:120%;
 
 }
 .div-solicitud i{
-  color:rgb(0, 0, 0);
+  color:#ffffff;
 }
 .button { 
   font-size: calc(5px + 2vmin);
@@ -104,22 +104,27 @@ font-size:120%;
   font-size:110%;
   font-weight:900;
 }
+.image-supply{
+  margin-right:10%;
+  margin-left:10%;
+  margin-top:30px;
+  margin-bottom:30px;
+}
 
 .img-state{
   align-self:auto;
-  width:100%;
+  width:120%;
 }
 .my-2{
   height:5px;
   width:25%;
-  border-color:rgba(255, 255, 255, 0.555);
+  border-color:rgba(255, 255, 255, 0.836);
 }
 .profile-data{
   text-align: left;
   padding:10%;
 }
 .profile-data .h4{
-  color:white;
   font-size: calc(0.4vw + 0.3vh + 2vmin);
   line-height: 70%;
 }
