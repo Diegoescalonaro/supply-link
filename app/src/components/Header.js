@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
+import profile from '../images/profile.png';
 //import * as eth from '../ethereum/ethereumController.js';
+import config from '../config';
 
 import {
     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
@@ -17,12 +19,15 @@ export default class Solicitud extends Component {
     }
     toggle() {
         this.setState({
-            isOpen: !this.state.isOpen
+            isOpen: !this.state.isOpen,
         })
     }
 
     render() {
         console.log("* * Component HEADER Render * *")
+        var etherscanaccount = `https://${config.network}.etherscan.io/address/${this.props.defaultaccount}`
+        var etherscancontract = `https://${config.network}.etherscan.io/address/${this.props.contractaddress}`
+
 
         return (
             <Navbar color="light" light expand="md">
@@ -31,25 +36,26 @@ export default class Solicitud extends Component {
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink className="nav-item-text" href="/home/">Solicitudes</NavLink>
+                            <NavLink className="nav-item-text" href="/home/">Proveedor</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink className="nav-item-text" href="/perfil/">Perfil</NavLink>
+                            <NavLink className="nav-item-text" href="/perfil/">Cliente</NavLink>
                         </NavItem>
+
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle className="nav-item-text" nav caret>
-                                Options
+                            <img src={profile}  alt="profile" />
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem>
-                                    Option 1
-                            </DropdownItem>
+                                    <NavLink className="nav-item-text" href={etherscanaccount}> Default user account: {this.props.defaultaccount}</NavLink>
+                                </DropdownItem>
                                 <DropdownItem>
-                                    Option 2
-                            </DropdownItem>
+                                    <NavLink className="nav-item-text" href={etherscancontract}> Smart Contract: {this.props.contractaddress}</NavLink>
+                                </DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem>
-                                    Reset
+                                <NavLink className="nav-item-text" href="/perfil/"> Exit</NavLink>
                             </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
@@ -57,7 +63,9 @@ export default class Solicitud extends Component {
                 </Collapse>
             </Navbar>
 
-        )
-    }
 
+
+                )
+            }
+        
 }

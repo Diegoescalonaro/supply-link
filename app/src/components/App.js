@@ -94,7 +94,7 @@ class App extends Component {
 
 		return (
 			<div className="App">
-				<Header />
+				<Header defaultaccount={this.state.defaultaccount} contractaddress={this.state.contractaddress}/>
 
 				<header className="App-header">
 					<h1 className="tittle">Supply-Link</h1>
