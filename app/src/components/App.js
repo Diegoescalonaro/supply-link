@@ -37,6 +37,10 @@ class App extends Component {
 			console.log("- - ComponentdidMount EVENTTTTT - - ")
 			this.getAllSolicitudes()
 		})
+		eth.getMetamaskEvent().then(event =>{
+			console.log("- - ComponentdidMount EVENTTTTT - - ")
+			window.location.reload()
+		})
 
 	}
 
@@ -49,9 +53,9 @@ class App extends Component {
 		})
 	}
 
-	async solicitar(_info, _price) {
-		console.log(this.state.web3.utils.toWei(_price))
-		var x = await eth.solicitar(_info, this.state.web3.utils.toWei(_price))
+	async solicitar(_producto, _precio) {
+		console.log(this.state.web3.utils.toWei(_precio))
+		var x = await eth.solicitar(_producto, this.state.web3.utils.toWei(_precio))
 		console.log(x)
 	}
 
@@ -86,9 +90,6 @@ class App extends Component {
 
 	render() {
 		console.log("* * Component APP Render * *")
-		// console.log(this.web3)
-		var etherscanaccount = `https://${config.network}.etherscan.io/address/${this.state.defaultaccount}`
-		var etherscancontract = `https://${config.network}.etherscan.io/address/${this.state.contractaddress}`
 
 		//TODO: ERROR Please pass numbers as strings or BigNumber objects to avoid precision errors.
 
@@ -102,8 +103,8 @@ class App extends Component {
 					<hr className="my-2" />
 					<img className="image-supply" src={supply} alt="Supply" />
 					<hr className="my-2" />
-					<p className="subtittle"> Solicita tus necesidades a un proveedor</p>
-					<p className="subtittle"> Cubre necesidades de un cliente</p>
+					<p className="subtittle"> Demanda productos a proveedores</p>
+					<p className="subtittle"> Cubre demandas de clientes</p>
 					<p className="subtittle"> Valida el proceso</p>
 					<hr className="my-2" />
 					<br></br>
@@ -113,9 +114,9 @@ class App extends Component {
 				{this.state.solicitudes ?
 					<div className="App-body">
 						<div>
-							<input className="input" ref="product" type="text"></input>
-							<input className="input" id="input2" ref="price" type="number"></input>
-							<Button className="button" color="primary" onClick={e => this.solicitar(this.refs.product.value, this.refs.price.value)}> SOLICITAR</Button>
+							<input className="input" ref="producto" type="text"></input>
+							<input className="input" id="input2" ref="precio" type="number"></input>
+							<Button className="button" color="primary" onClick={e => this.solicitar(this.refs.producto.value, this.refs.precio.value)}> SOLICITAR</Button>
 						</div>
 						<div>
 							<br></br>

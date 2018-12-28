@@ -30,13 +30,19 @@ export default class Perfil extends Component {
         this.getAllMySolicitudes()
     }
 
-    async componentDidUpdate() {
+
+	async componentDidUpdate() {
 		console.log(" * * Component Did UPDATE * *")
 		eth.getEvent().then(event => {
 			console.log("- - ComponentdidMount EVENTTTTT - - ")
 			this.getAllMySolicitudes()
-        })
-    }
+		})
+		eth.getMetamaskEvent().then(event =>{
+			console.log("- - ComponentdidMount EVENTTTTT - - ")
+			window.location.reload()
+		})
+
+	}
 
     async getAllMySolicitudes() {
         eth.getAllSolicitudesByAddress(this.state.defaultaccount).then(result => {
@@ -44,7 +50,6 @@ export default class Perfil extends Component {
                 solicitudes: result,
                 data: false
             })
-            console.log(this.state.solicitudes)
         })
     }
 
@@ -60,14 +65,13 @@ export default class Perfil extends Component {
         var etherscancontract = `https://${config.network}.etherscan.io/address/${this.state.contractaddress}`
 
         console.log("* * Component PERFIL Render * *")
-
         return (
             <div className="App-body">
                 <Header defaultaccount={this.state.defaultaccount} contractaddress={this.state.contractaddress} />
                 <Button className="button" color="secondary" onClick={e => this.getAllMySolicitudes()}> Mostrar mis solicitudes</Button>
                 <Button className="button" color="secondary" onClick={e => this.getData()}> Datos </Button>
                 {this.state.solicitudes ?
-                    <Solicitudes CLASSNAME="button" solicitudes={this.state.solicitudes} action="VALIDAR"></Solicitudes>
+                    <Solicitudes className="button" solicitudes={this.state.solicitudes} action="VALIDAR"></Solicitudes>
                     : <img src={ethereumsvg} className="App-logo" alt="logo" />
                 }
                 {this.state.data ?

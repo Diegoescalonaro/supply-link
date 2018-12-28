@@ -9,6 +9,10 @@ export var address = config.smartcontractaddress
 var web3 = window.web3
 var web3provider = undefined
 
+console.log("METAMASKKKKKKKKKKKKKK")
+//console.log(window.ethereum.enable())
+//window.ethereum.enable().then(console.log) //Aparece cuadro de permitir conectar a metamask
+
 /* WEB3 PROVIDER */
 if (typeof web3 != 'undefined') {
     web3provider = web3.currentProvider
@@ -38,6 +42,19 @@ export var getEvent = async function () {
     })
     return thePromise
 }
+
+/* HANDLING METAMASK EVENTS */
+export var getMetamaskEvent = async function () {
+    var thePromise = new Promise((resolve, reject) => {
+        window.ethereum.on('accountsChanged', function (accounts) {
+                console.log("EVENTO METAMASK ------- Cambio de cuenta"+accounts[0])
+                resolve(accounts[0])
+        })
+    })
+    return thePromise
+}
+
+
 // contract.events.SolicitudCubierta({}, function(error,event){
 //     console.log("EVENTO-----------")
 //     if(event !== undefined && event.event === "SolicitudCubierta"){
@@ -55,14 +72,17 @@ export var getEvent = async function () {
 //TODO: Hacer comprobación con metamask para que si cambia la cuenta en uso se actualice todo
 // Default account settings
 export var getDefaultAccount = async function () {
-    const accounts = await web3.eth.getAccounts()
-    web3.eth.defaultAccount = accounts[0]
-    console.log("Default account: " + web3.eth.defaultAccount)
+    const accounts = await window.ethereum.enable()     // Cuadro de login MetaMask
+    const account = accounts[0]
+    web3.eth.defaultAccount = account
+    console.log("Default account: " + account)
 
-    const balance = await web3.eth.getBalance(web3.eth.defaultAccount)
+    const balance = await web3.eth.getBalance(account)
     console.log("Balance:", web3.utils.fromWei(balance, "ether"), "eth")
-    return await web3.eth.defaultAccount
+    return await account
 }
+
+
 
 /**
  * @function solicitar
@@ -70,12 +90,12 @@ export var getDefaultAccount = async function () {
  * @description 
  * @returns {Promise}
  */
-export var solicitar = function (info, price) {
+export var solicitar = function (product, precio) {
     var thePromise = new Promise((resolve, reject) => {
         if (contract === undefined)
             resolve("You must instantiate the contract.")
         else {
-            contract.methods.solicitar(info, price).send({ from: web3.eth.defaultAccount })
+            contract.methods.solicitar(product, precio).send({ from: web3.eth.defaultAccount })
                 .then(res => {
                     // will be fired once the receipt its mined
                     //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
@@ -120,9 +140,9 @@ export var cubrir = function (numberID) {
  * @description 
  * @returns {Promise}
  */
-export var validar = function (numberID) {
+export var validar = function (numberID, precio) {
     let thePromise = new Promise((resolve, reject) => {
-        contract.methods.validar(numberID).send({ from: web3.eth.defaultAccount, value: price })
+        contract.methods.validar(numberID).send({ from: web3.eth.defaultAccount, value: precio })
             .then(res => {
                 // will be fired once the receipt its mined
                 //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
@@ -169,7 +189,7 @@ export var cancelar = function (numberID, bool) {
 export var getSolicitudByID = async function (numberID) {
     console.log(numberID)
     var result = await contract.methods.getSolicitudByID(numberID).call()
-    return { info: result['info'], owner: result['owner'], provider: result['provider'] }
+    return { product: result['product'], owner: result['owner'], provider: result['provider'] }
 }
 
 /**
@@ -182,7 +202,7 @@ export var getAllSolicitudes = async function () {
     var result = []
     for (var i = length - 1; i >= 0; i--) {
         var solicitud = await contract.methods.getSolicitudByID(i).call()
-        if (solicitud.info !== '') {
+        if (solicitud.product !== '') {
             result.push(solicitud)
         }
     }
@@ -198,9 +218,10 @@ export var getAllSolicitudesByAddress = async function (address) {
     var length = await contract.methods.getLength().call()
     var result = []
     for (var i = length - 1; i >= 0; i--) {
-        var solicitud = await contract.methods.getNecesidadByID(i).call()
-        if (solicitud.owner === address) {
+        var solicitud = await contract.methods.getSolicitudByID(i).call()
+        if (solicitud.owner.toUpperCase() == address.toUpperCase()) {
             result.push(solicitud)
+            console.log(result)
         }
     }
     return result

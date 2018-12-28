@@ -1,4 +1,4 @@
-[
+var platformABI = [
 	{
 		"constant": false,
 		"inputs": [
@@ -241,3 +241,5 @@
 		"type": "event"
 	}
 ]
+
+export default platformABI
