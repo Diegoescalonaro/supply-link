@@ -1,7 +1,7 @@
 pragma solidity ^0.4.25;
 
 contract Plataforma {
-    
+   
     /* Variables */
     uint256 private numberID;
     enum Status {pendiente, cubierta, validada}
@@ -18,7 +18,6 @@ contract Plataforma {
     Solicitud[] solicitudes;
     
     mapping (uint256 => uint256)    positionToNumberID;
-    mapping (uint256 => Solicitud)  numberIDtoSolicitud;
     
     /* Eventos */
     event NuevaSolicitud    (uint256 id, string producto, uint256 precio, address owner);
@@ -65,36 +64,39 @@ contract Plataforma {
     *  Funcion de cubrir una demanda de producto (proveedor) 
     **/
     function cubrir(uint _numberID) public{
-        require( solicitudes[positionToNumberID[_numberID]].proveedor == 0x0);
-        solicitudes[positionToNumberID[_numberID]].proveedor = msg.sender;
-        solicitudes[positionToNumberID[_numberID]].status = Status.cubierta;
-        emit SolicitudCubierta(_numberID, solicitudes[positionToNumberID[_numberID]].producto, solicitudes[positionToNumberID[_numberID]].precio, solicitudes[positionToNumberID[_numberID]].owner, msg.sender);
+        Solicitud memory solicitud = solicitudes[positionToNumberID[_numberID]];
+        require( solicitud.proveedor == 0x0 && solicitud.status == Status.pendiente);
+        solicitud.proveedor = msg.sender;
+        solicitud.status = Status.cubierta;
+        emit SolicitudCubierta(_numberID, solicitud.producto, solicitud.precio, solicitud.owner, msg.sender);
     }
 
     /**  
     *  Funcion de validar una demanda de producto ya cubierta por proveedor (cliente)
     **/
     function validar(uint256 _numberID) payable public{
-        require(msg.sender == getSolicitudOwner(_numberID) && solicitudes[positionToNumberID[_numberID]].status == Status.cubierta);
-        require(msg.value >= solicitudes[positionToNumberID[_numberID]].precio);
-        address destination = solicitudes[positionToNumberID[_numberID]].proveedor;
+        Solicitud memory solicitud = solicitudes[positionToNumberID[_numberID]];
+        require(msg.sender == getSolicitudOwner(_numberID) && solicitud.status == Status.cubierta);
+        require(msg.value >= solicitud.precio);
+        address destination = solicitud.proveedor;
         // transfer ether to pay the product
-        destination.transfer(solicitudes[positionToNumberID[_numberID]].precio);
-        solicitudes[positionToNumberID[_numberID]].status = Status.validada;
-        emit SolicitudValidada(_numberID, solicitudes[positionToNumberID[_numberID]].producto, solicitudes[positionToNumberID[_numberID]].precio, solicitudes[positionToNumberID[_numberID]].owner);
+        destination.transfer(solicitud.precio);
+        solicitud.status = Status.validada;
+        emit SolicitudValidada(_numberID, solicitud.producto, solicitud.precio, solicitud.owner);
     }
     
     /**
     *  Funcion para cancelar una demanda de producto (cliente) 
     **/
     function cancelar(uint256 _numberID, bool _delete) public{
+        Solicitud memory solicitud = solicitudes[positionToNumberID[_numberID]];
         require(msg.sender == getSolicitudOwner(_numberID));
         if(_delete){
-            delete solicitudes[positionToNumberID[_numberID]];
+            delete solicitud;
         }else{
-            solicitudes[positionToNumberID[_numberID]].status = Status.pendiente;
-            solicitudes[positionToNumberID[_numberID]].proveedor = 0x0;
+            solicitud.status = Status.pendiente;
+            solicitud.proveedor = 0x0;
         }
-        emit SolicitudCancelada(_numberID, solicitudes[positionToNumberID[_numberID]].producto, solicitudes[positionToNumberID[_numberID]].precio, solicitudes[positionToNumberID[_numberID]].owner, _delete);
+        emit SolicitudCancelada(_numberID, solicitud.producto, solicitud.precio, solicitud.owner, _delete);
     }
 }

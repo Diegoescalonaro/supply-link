@@ -21,6 +21,20 @@ var platformABI = [
 		"constant": false,
 		"inputs": [
 			{
+				"name": "_numberID",
+				"type": "uint256"
+			}
+		],
+		"name": "cubrir",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "_producto",
 				"type": "string"
 			},
@@ -43,77 +57,10 @@ var platformABI = [
 				"type": "uint256"
 			}
 		],
-		"name": "cubrir",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_numberID",
-				"type": "uint256"
-			}
-		],
 		"name": "validar",
 		"outputs": [],
 		"payable": true,
 		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getLength",
-		"outputs": [
-			{
-				"name": "count",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_numberID",
-				"type": "uint256"
-			}
-		],
-		"name": "getSolicitudByID",
-		"outputs": [
-			{
-				"name": "id",
-				"type": "uint256"
-			},
-			{
-				"name": "producto",
-				"type": "string"
-			},
-			{
-				"name": "precio",
-				"type": "uint256"
-			},
-			{
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"name": "proveedor",
-				"type": "address"
-			},
-			{
-				"name": "status",
-				"type": "uint8"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -239,6 +186,59 @@ var platformABI = [
 		],
 		"name": "SolicitudCancelada",
 		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getLength",
+		"outputs": [
+			{
+				"name": "count",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_numberID",
+				"type": "uint256"
+			}
+		],
+		"name": "getSolicitudByID",
+		"outputs": [
+			{
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"name": "producto",
+				"type": "string"
+			},
+			{
+				"name": "precio",
+				"type": "uint256"
+			},
+			{
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"name": "proveedor",
+				"type": "address"
+			},
+			{
+				"name": "status",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]
 
