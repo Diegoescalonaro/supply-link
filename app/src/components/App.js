@@ -94,7 +94,7 @@ class App extends Component {
 
 		return (
 			<div className="App">
-				<Header defaultaccount={this.state.defaultaccount} contractaddress={this.state.contractaddress}/>
+				<Header defaultaccount={this.state.defaultaccount} contractaddress={this.state.contractaddress} />
 
 				<header className="App-header">
 					<h1 className="tittle">Supply-Link</h1>
@@ -107,15 +107,11 @@ class App extends Component {
 					<p className="subtittle"> Valida el proceso</p>
 					<hr className="my-2" />
 					<br></br>
-					<div>
-							<p className="text-white">Default Account (Metamask):	<a href={etherscanaccount}>{this.state.defaultaccount}></a></p>
-							<p className="text-white">Smart Contract: <a href={etherscancontract}>{this.state.contractaddress}</a></p>
-						</div>
+					
 					<Button className="button" color="danger" onClick={e => this.start()}>Restart</Button>
 				</header>
 				{this.state.solicitudes ?
 					<div className="App-body">
-
 						<div>
 							<input className="input" ref="product" type="text"></input>
 							<input className="input" id="input2" ref="price" type="number"></input>

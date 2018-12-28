@@ -58,11 +58,12 @@ export default class Perfil extends Component {
     render() {
         var etherscanaccount = `https://${config.network}.etherscan.io/address/${this.state.defaultaccount}`
         var etherscancontract = `https://${config.network}.etherscan.io/address/${this.state.contractaddress}`
+
         console.log("* * Component PERFIL Render * *")
 
         return (
             <div className="App-body">
-                <Header></Header>
+                <Header defaultaccount={this.state.defaultaccount} contractaddress={this.state.contractaddress} />
                 <Button className="button" color="secondary" onClick={e => this.getAllMySolicitudes()}> Mostrar mis solicitudes</Button>
                 <Button className="button" color="secondary" onClick={e => this.getData()}> Datos </Button>
                 {this.state.solicitudes ?

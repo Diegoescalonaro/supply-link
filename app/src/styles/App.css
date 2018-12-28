@@ -23,7 +23,7 @@ font-size:120%;
 }
 .App-body{
   text-align:center;
-  background-color:#2a3a4b13;
+  background-color:#f9f9f9;
 }
 .App-link {
   color: #61dafb;
@@ -40,9 +40,7 @@ font-size:120%;
   line-height:100%;
 }
 
-.text-white{
-  color:rgb(0, 0, 0);
-}
+
 .input{
   width:500px;
   font-size:120%;
@@ -69,17 +67,20 @@ font-size:120%;
   align-items:center;
   justify-content:center;
   border-style:outset;
-  border-color:rgba(190, 182, 182, 0.555);
-  background-color:#705b60ec;
+  border-color:rgba(230, 230, 230, 0.555);
+  background-color:#e1d3c6c3;
 }
 
 .div-solicitud{
-  color:#ffffff;
+  color:#2a3a4b;
   width:70%;
   text-align:left;
-  
+}
+.div-solicitud i{
+  color:#2a3a4b;
 }
 .div-solicitud .h4{
+  font-size: calc(0.4vw + 0.3vh + 2vmin);
   font-weight:800;
 }
 .div-solicitud .lead{
@@ -87,9 +88,7 @@ font-size:120%;
   font-weight:500;
 
 }
-.div-solicitud i{
-  color:#ffffff;
-}
+
 .button { 
   font-size: calc(5px + 2vmin);
   font-weight:900;
