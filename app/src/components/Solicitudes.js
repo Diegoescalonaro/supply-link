@@ -16,9 +16,9 @@ class Solicitudes extends Component {
 		console.log(x)
 	}
 
-	async validar(_id, _price) {
-		console.log(_price)
-		var x = await eth.validar(_id,_price)
+	async validar(_id, _precio) {
+		console.log(_precio)
+		var x = await eth.validar(_id,_precio)
 		alert(x)
 	}
 
@@ -46,7 +46,7 @@ class Solicitudes extends Component {
 						<Solicitud solicitudes={this.props.solicitudes} item={item}></Solicitud>
 						{(this.props.action === "CUBRIR") ? <Button className="button-cubrir" color="primary" onClick={e => this.cubrir(this.props.solicitudes[item].id)}>{this.props.action}</Button>
 							: <div>
-								<Button color="success" onClick={e => this.validar(this.props.solicitudes[item].id, this.props.solicitudes[item].price)}>{this.props.action}</Button>
+								<Button color="success" onClick={e => this.validar(this.props.solicitudes[item].id, this.props.solicitudes[item].precio)}>{this.props.action}</Button>
 								<Button color="warning" onClick={e => this.cancelar(this.props.solicitudes[item].id)}>CANCELAR</Button>
 								<Button color="danger" onClick={e => this.eliminar(this.props.solicitudes[item].id)}>ELIMINAR</Button>
 							</div>}
