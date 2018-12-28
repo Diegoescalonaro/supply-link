@@ -23,8 +23,7 @@ console.log(web3)
 
 /* CONTRACT IMPLEMENTATION */
 export var contract = new web3.eth.Contract(ABI, address);
-console.log(contract)
-console.log("DEBUGGING")
+console.log("Contract integrated! *_*")
 
 /* HANDLING BLOCKCHAIN EVENTS */
 export var getEvent = async function () {
@@ -53,6 +52,7 @@ export var getEvent = async function () {
 // })
 
 
+//TODO: Hacer comprobación con metamask para que si cambia la cuenta en uso se actualice todo
 // Default account settings
 export var getDefaultAccount = async function () {
     const accounts = await web3.eth.getAccounts()
@@ -120,7 +120,7 @@ export var cubrir = function (numberID) {
  * @description 
  * @returns {Promise}
  */
-export var validar = function (numberID, price) {
+export var validar = function (numberID) {
     let thePromise = new Promise((resolve, reject) => {
         contract.methods.validar(numberID).send({ from: web3.eth.defaultAccount, value: price })
             .then(res => {
@@ -168,7 +168,7 @@ export var cancelar = function (numberID, bool) {
  */
 export var getSolicitudByID = async function (numberID) {
     console.log(numberID)
-    var result = await contract.methods.getNecesidadByID(numberID).call()
+    var result = await contract.methods.getSolicitudByID(numberID).call()
     return { info: result['info'], owner: result['owner'], provider: result['provider'] }
 }
 
@@ -181,7 +181,7 @@ export var getAllSolicitudes = async function () {
     var length = await contract.methods.getLength().call()
     var result = []
     for (var i = length - 1; i >= 0; i--) {
-        var solicitud = await contract.methods.getNecesidadByID(i).call()
+        var solicitud = await contract.methods.getSolicitudByID(i).call()
         if (solicitud.info !== '') {
             result.push(solicitud)
         }
@@ -205,4 +205,7 @@ export var getAllSolicitudesByAddress = async function (address) {
     }
     return result
 }
+
+//TODO: getAllSolicitudesForClient
+//TODO: getAllSolicitudesForProvider
 
