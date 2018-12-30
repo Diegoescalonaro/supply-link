@@ -39,7 +39,35 @@ font-size:120%;
   margin-left:10%;
   line-height:100%;
 }
+.home-buttons-div{
+  width:95%;
+  height:calc(10vw + 0.3vh + 2vmin);
+  margin-right: 10px;
+  text-align:center;
+  margin-bottom:50px;
 
+}
+.home-buttons-div .button{
+  width:30%;
+  height:100%;
+  margin:auto;
+  font-size:calc(2vw + 0.3vh + 2vmin);
+}
+#cliente{
+  background-color:rgba(40, 155, 40, 0.493);
+}
+#cliente-color{
+  color:rgba(40, 155, 40, 0.493);
+  font-size:200%;
+}
+
+#proveedor{
+  background-color:rgba(43, 43, 255, 0.432);
+}
+#proveedor-color{
+  color:rgba(43, 43, 255, 0.432);
+  font-size:200%;
+}
 
 .input{
   width:500px;

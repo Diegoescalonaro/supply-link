@@ -14,7 +14,7 @@ import Solicitudes from './Solicitudes';
 import Header from './Header';
 import Footer from './Footer';
 
-class App extends Component {
+class Proveedor extends Component {
 	constructor(props) {
 		super(props)
 		this.state = { web3: '', defaultaccount: '0x0', contract: '', contractaddress: '0x0', solicitudes: '' }
@@ -37,7 +37,7 @@ class App extends Component {
 			console.log("- - ComponentdidMount EVENTTTTT - - ")
 			this.getAllSolicitudes()
 		})
-		eth.getMetamaskEvent().then(event =>{
+		eth.getMetamaskEvent().then(event => {
 			console.log("- - ComponentdidMount EVENTTTTT - - ")
 			window.location.reload()
 		})
@@ -60,8 +60,7 @@ class App extends Component {
 	}
 
 	async getSolicitudByID(_id) {
-		console.log(_id)
-		eth.getSolicitudByID(_id).then(x => {
+		eth.getSolicitudByID(2).then(x => {
 			this.setState({
 				solicitudes: x
 			})
@@ -74,7 +73,6 @@ class App extends Component {
 			this.setState({
 				solicitudes: x
 			})
-			console.log(x)
 		})
 
 	}
@@ -84,7 +82,15 @@ class App extends Component {
 			this.setState({
 				solicitudes: x
 			})
-			console.log(x)
+		})
+	}
+
+	async getAllSolicitudesForProvider(_address){
+		eth.getAllSolicitudesForProvider(_address).then(x=>{
+			this.setState({
+				solicitudes:x
+			})
+
 		})
 	}
 
@@ -108,7 +114,7 @@ class App extends Component {
 					<p className="subtittle"> Valida el proceso</p>
 					<hr className="my-2" />
 					<br></br>
-					
+
 					<Button className="button" color="danger" onClick={e => this.start()}>Restart</Button>
 				</header>
 				{this.state.solicitudes ?
@@ -121,10 +127,10 @@ class App extends Component {
 						<div>
 							<br></br>
 							<input className="input" id="input3" ref="search"></input>
-							<br></br>
-							<Button className="button" color="secondary" onClick={e => this.getSolicitudByID(this.refs.search.value)}> getSolicitudByID</Button>
-							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudes()}> getAllSolicitudes</Button>
-							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudesByAddress(this.refs.search.value)}> getAllSolicitudesByAddress</Button>
+
+							<Button className="button" color="secondary" onClick={e => this.getSolicitudByID()}> Ver demanda</Button>
+							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudes()}> Ver todas</Button>
+							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudesForProvider(this.state.defaultaccount)}> Mostrar mi histórico </Button>
 						</div>
 
 						{this.state.solicitudes &&
@@ -143,4 +149,4 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default Proveedor;

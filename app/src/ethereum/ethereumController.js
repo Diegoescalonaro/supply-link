@@ -119,7 +119,7 @@ export var solicitar = function (product, precio) {
  */
 export var cubrir = function (numberID) {
     let thePromise = new Promise((resolve, reject) => {
-        contract.methods.cubrir(numberID).send({ from: web3.eth.defaultAccount })  //TODO: PARAMETROS
+        contract.methods.cubrir(numberID).send({ from: web3.eth.defaultAccount })  
             .then(res => {
                 // will be fired once the receipt its mined
                 //logger.info(`Tx registered in Ethereum: ${res.transactionHash}`)
@@ -187,8 +187,7 @@ export var cancelar = function (numberID, bool) {
  * @returns {Promise}
  */
 export var getSolicitudByID = async function (numberID) {
-    console.log(numberID)
-    var result = await contract.methods.getSolicitudByID(numberID).call()
+    var result = await contract.methods.getSolicitudByID(0).call()
     return { product: result['product'], owner: result['owner'], provider: result['provider'] }
 }
 
@@ -227,6 +226,69 @@ export var getAllSolicitudesByAddress = async function (address) {
     return result
 }
 
-//TODO: getAllSolicitudesForClient
-//TODO: getAllSolicitudesForProvider
+//TODO: getAllSolicitudesForOwner
+/**
+ * @function getAllSolicitudesForOwner
+ * @description
+ * @returns
+ */
+export var getAllSolicitudesForOwner = async function (address) {
+    var length = await contract.methods.getLength().call()
+    var result = []
+    for (var i = length - 1; i >= 0; i--) {
+        var solicitud = await contract.methods.getSolicitudByID(i).call()
+        if (solicitud.owner.toUpperCase() == address.toUpperCase()) {
+            result.push(solicitud)
+        }
+    }
+    return result
+}
 
+
+//TODO: getAllSolicitudesForProvider
+/**
+ * @function getAllSolicitudesForProvider
+ * @description
+ * @returns
+ */
+export var getAllSolicitudesForProvider = async function (address) {
+    var length = await contract.methods.getLength().call()
+    var result = []
+    for (var i = length - 1; i >= 0; i--) {
+        var solicitud = await contract.methods.getSolicitudByID(i).call()
+        if (solicitud.proveedor.toUpperCase() == address.toUpperCase()) {
+            result.push(solicitud)
+        }
+    }
+    return result
+}
+
+
+
+
+/*
+
+// Default Network //
+console.log(web3.givenProvider.networkVersion)
+var netId = web3.givenProvider.networkVersion
+switch (netId) {
+  case "1":
+    console.log('This is mainnet')
+    break
+  case "2":
+    console.log('This is the deprecated Morden test network.')
+    break
+  case "3":
+    console.log('This is the ropsten test network.')
+    break
+  case "4":
+    console.log('This is the Rinkeby test network.')
+    break
+  case "42":
+    console.log('This is the Kovan test network.')
+    break
+  default:
+    console.log('This is an unknown network.')
+}
+
+*/

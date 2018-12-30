@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import './styles/index.css';
 import * as serviceWorker from './serviceWorker';
 /* React Components */
-import App from './components/App';
-import Perfil from './components/Perfil';
+import Home from './components/Home';
+import Cliente from './components/Cliente';
+import Proveedor from './components/Proveedor';
 /* React Router */
 // import {Router, Route, IndexRoute} from 'react-router';
 import { Switch, BrowserRouter as Router, Route, Redirect } from "react-router-dom";
@@ -12,11 +13,10 @@ import { Switch, BrowserRouter as Router, Route, Redirect } from "react-router-d
 ReactDOM.render(
     <Router>
       <Switch>
-      <Route path='/' component={App} exact={true}/>
-      <Route path="/home/" component={App}/>
-      <Route path="/perfil/" component={Perfil}/>
-      <Route path="/help/" component={Perfil}/>
-      <Redirect to='/' />
+      <Route path='/home' component={Home} exact={true}/>
+      <Route path="/cliente/" component={Cliente}/>
+      <Route path="/proveedor/" component={Proveedor}/>
+      <Redirect to='/home' />
       </Switch>
     </Router>, document.getElementById('root')
 

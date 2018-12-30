@@ -1,3 +1,6 @@
+# supply-link
+A platform that links customers and suppliers in order to cover the supply needs based on blockchain &amp; IoT
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
