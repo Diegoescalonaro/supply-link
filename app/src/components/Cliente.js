@@ -71,22 +71,22 @@ export default class Proveedor extends Component {
                 <Header defaultaccount={this.state.defaultaccount} contractaddress={this.state.contractaddress} />
 
                 <header className="App-header">
-                    <h1 className="tittle">Supply-Link</h1>
-                    <p className="subtittle"> Plataforma que conecta cliente con proveedor, a traves de la automaticación de las necesidades del cliente.</p>
+                    <h1 className="tittle">Cliente</h1>
+                    <p className="subtittle"> Demanda productos a proveedores y valida todo el proceso sobre blockchain.</p>
                     <hr className="my-2" />
                     <img className="image-supply" src={supply} alt="Supply" />
                     <hr className="my-2" />
+
+                    <div>
+                        <input className="input" ref="producto" type="text" placeholder="producto a demandar"></input>
+                        <input className="input" id="input2" ref="precio" type="number" placeholder="precio ETH"></input>
+                        <Button className="button" color="primary" onClick={e => this.solicitar(this.refs.producto.value, this.refs.precio.value)}> SOLICITAR</Button>
+                    </div>
                 </header>
 
                 <div className="App-body">
                     <Button className="button" color="secondary" onClick={e => this.getAllMySolicitudes()}> Mostrar mis solicitudes</Button>
                     <Button className="button" color="secondary" onClick={e => this.getData()}> Datos </Button>
-
-                    <div>
-                        <input className="input" ref="producto" type="text"></input>
-                        <input className="input" id="input2" ref="precio" type="number"></input>
-                        <Button className="button" color="primary" onClick={e => this.solicitar(this.refs.producto.value, this.refs.precio.value)}> SOLICITAR</Button>
-                    </div>
 
                     {this.state.solicitudes ?
                         <Solicitudes className="button" solicitudes={this.state.solicitudes} action="VALIDAR"></Solicitudes>

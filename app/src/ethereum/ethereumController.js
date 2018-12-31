@@ -187,8 +187,8 @@ export var cancelar = function (numberID, bool) {
  * @returns {Promise}
  */
 export var getSolicitudByID = async function (numberID) {
-    var result = await contract.methods.getSolicitudByID(0).call()
-    return { product: result['product'], owner: result['owner'], provider: result['provider'] }
+    var result = await contract.methods.getSolicitudByID(numberID).call()
+    return { result }
 }
 
 /**
@@ -208,8 +208,9 @@ export var getAllSolicitudes = async function () {
     return result
 }
 
+//Igual: getAllSolicitudesForOwner
 /**
- * @function getAllSolicitudes
+ * @function getAllSolicitudesByAddress
  * @description
  * @returns
  */
@@ -221,24 +222,6 @@ export var getAllSolicitudesByAddress = async function (address) {
         if (solicitud.owner.toUpperCase() == address.toUpperCase()) {
             result.push(solicitud)
             console.log(result)
-        }
-    }
-    return result
-}
-
-//TODO: getAllSolicitudesForOwner
-/**
- * @function getAllSolicitudesForOwner
- * @description
- * @returns
- */
-export var getAllSolicitudesForOwner = async function (address) {
-    var length = await contract.methods.getLength().call()
-    var result = []
-    for (var i = length - 1; i >= 0; i--) {
-        var solicitud = await contract.methods.getSolicitudByID(i).call()
-        if (solicitud.owner.toUpperCase() == address.toUpperCase()) {
-            result.push(solicitud)
         }
     }
     return result

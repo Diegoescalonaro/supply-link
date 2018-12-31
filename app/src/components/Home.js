@@ -102,7 +102,12 @@ class Home extends Component {
 					<p className="subtittle"> Plataforma que conecta cliente con proveedor, a traves de la automaticación de las necesidades del cliente.</p>
 					<hr className="my-2" />
 					<img className="image-supply" src={supply} alt="Supply" />
-
+					
+					<hr className="my-2" />
+					<p className="subtittle"> Demanda productos a proveedores</p>
+					<p className="subtittle"> Cubre demandas de clientes</p>
+					<p className="subtittle"> Valida el proceso</p>
+					
 					<br></br>
 					<div className="home-buttons-div">
 						<Button className="button" id="cliente" color="secondary" onClick={e => window.location.href='cliente'}> Cliente</Button>

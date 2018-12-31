@@ -18,9 +18,9 @@ class Solicitud extends Component {
 		
 		return (
 			<div className="div-solicitud">
-				<p className="h4"> · Solicitud {this.props.solicitudes[item].id} </p>
+				<p className="h4"> · Solicitud ID: {this.props.solicitudes[item].id} </p>
 				<p className="lead"> <i className="h4">Status:</i> {status} </p>
-				<p className="lead"> <i className="h4">Productos:</i> {this.props.solicitudes[item].producto}</p>
+				<p className="lead"> <i className="h4">Producto/s:</i> {this.props.solicitudes[item].producto}</p>
 				<p className="lead"> <i className="h4">Precio:</i> {web3.utils.fromWei(this.props.solicitudes[item].precio)} ETH</p>
 				<p className="lead"> <i className="h4">Owner:</i> {this.props.solicitudes[item].owner}</p>
 				<p className="lead"> <i className="h4">Proveedor:</i> {this.props.solicitudes[item].proveedor}</p>

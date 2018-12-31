@@ -44,15 +44,6 @@ class Proveedor extends Component {
 
 	}
 
-	start() {
-		var web3 = initWeb3();
-		var defaultaccount = web3.currentProvider.selectedAddress;
-		this.setState({
-			defaultaccount: defaultaccount,
-			web3: web3
-		})
-	}
-
 	async solicitar(_producto, _precio) {
 		console.log(this.state.web3.utils.toWei(_precio))
 		var x = await eth.solicitar(_producto, this.state.web3.utils.toWei(_precio))
@@ -60,11 +51,10 @@ class Proveedor extends Component {
 	}
 
 	async getSolicitudByID(_id) {
-		eth.getSolicitudByID(2).then(x => {
+		eth.getSolicitudByID(_id).then(x => {
 			this.setState({
 				solicitudes: x
 			})
-			console.log(x)
 		})
 	}
 
@@ -85,10 +75,10 @@ class Proveedor extends Component {
 		})
 	}
 
-	async getAllSolicitudesForProvider(_address){
-		eth.getAllSolicitudesForProvider(_address).then(x=>{
+	async getAllSolicitudesForProvider(_address) {
+		eth.getAllSolicitudesForProvider(_address).then(x => {
 			this.setState({
-				solicitudes:x
+				solicitudes: x
 			})
 
 		})
@@ -104,35 +94,28 @@ class Proveedor extends Component {
 				<Header defaultaccount={this.state.defaultaccount} contractaddress={this.state.contractaddress} />
 
 				<header className="App-header">
-					<h1 className="tittle">Supply-Link</h1>
-					<p className="subtittle"> Plataforma que conecta cliente con proveedor, a traves de la automaticación de las necesidades del cliente.</p>
+					<h1 className="tittle">Proveedor </h1>
+					<p className="subtittle"> Cubre demandas de clientes</p>
 					<hr className="my-2" />
 					<img className="image-supply" src={supply} alt="Supply" />
 					<hr className="my-2" />
-					<p className="subtittle"> Demanda productos a proveedores</p>
-					<p className="subtittle"> Cubre demandas de clientes</p>
-					<p className="subtittle"> Valida el proceso</p>
-					<hr className="my-2" />
+					<p className="subtittle">  </p>
+
 					<br></br>
 
-					<Button className="button" color="danger" onClick={e => this.start()}>Restart</Button>
+					<div>
+						<br></br>
+						<Button className="button" color="secondary" onClick={e => this.getAllSolicitudes()}> Ver todas</Button>
+						<Button className="button" color="secondary" onClick={e => this.getAllSolicitudesForProvider(this.state.defaultaccount)}> Mostrar mi histórico </Button>
+						<br></br>
+						<input className="input" id="input3" ref="search" placeholder="Identificador de solicitud"></input>
+						<Button className="button" color="secondary" onClick={e => this.getSolicitudByID(String(this.refs.search.value))}> Ver demanda</Button>
+
+					</div>
 				</header>
+
 				{this.state.solicitudes ?
 					<div className="App-body">
-						<div>
-							<input className="input" ref="producto" type="text"></input>
-							<input className="input" id="input2" ref="precio" type="number"></input>
-							<Button className="button" color="primary" onClick={e => this.solicitar(this.refs.producto.value, this.refs.precio.value)}> SOLICITAR</Button>
-						</div>
-						<div>
-							<br></br>
-							<input className="input" id="input3" ref="search"></input>
-
-							<Button className="button" color="secondary" onClick={e => this.getSolicitudByID()}> Ver demanda</Button>
-							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudes()}> Ver todas</Button>
-							<Button className="button" color="secondary" onClick={e => this.getAllSolicitudesForProvider(this.state.defaultaccount)}> Mostrar mi histórico </Button>
-						</div>
-
 						{this.state.solicitudes &&
 							<Solicitudes solicitudes={this.state.solicitudes} action="CUBRIR"></Solicitudes>
 						}

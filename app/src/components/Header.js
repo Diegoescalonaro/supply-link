@@ -31,7 +31,7 @@ export default class Solicitud extends Component {
 
         return (
             <Navbar color="light" light expand="md">
-                <NavbarBrand className="nav-item-text" href="/">SUPPLY LINK</NavbarBrand>
+                <NavbarBrand className="tittle-header" href="/">Supply-Link</NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
@@ -51,6 +51,9 @@ export default class Solicitud extends Component {
                                 </DropdownItem>
                                 <DropdownItem>
                                     <NavLink className="nav-item-text" href={etherscancontract}> Smart Contract: {this.props.contractaddress}</NavLink>
+                                </DropdownItem>
+                                <DropdownItem>
+                                    <NavLink className="nav-item-text" href={etherscancontract}> Ethereum Network: {config.network}</NavLink>
                                 </DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem>

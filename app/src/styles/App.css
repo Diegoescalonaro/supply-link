@@ -32,6 +32,10 @@ font-size:120%;
   font-family: 'Allerta Stencil';
   font-size:400%;
 }
+.tittle-header{
+  font-family: 'Allerta Stencil';
+  font-size:200%;
+}
 .subtittle{
   text-align:center;
   font-family:'Copse';
@@ -72,8 +76,14 @@ font-size:120%;
 .input{
   width:500px;
   font-size:120%;
-  text-align:center;
+  text-align:center; 
 }
+::-webkit-input-placeholder{
+  font-style: italic;
+  font-size:80%;
+}
+
+
 #input2 {
   width:200px;
 
