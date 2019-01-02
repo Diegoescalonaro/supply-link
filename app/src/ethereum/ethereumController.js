@@ -7,7 +7,10 @@ export var address = config.smartcontractaddress
 
 /* WEB3 CREATION */
 var web3 = window.web3
-var web3provider = undefined
+
+console.log("DEBUG ********************S*S*S**S*S")
+console.log(web3.providers)
+console.log(web3.currentProvider)
 
 console.log("METAMASKKKKKKKKKKKKKK")
 //console.log(window.ethereum.enable())
@@ -15,14 +18,14 @@ console.log("METAMASKKKKKKKKKKKKKK")
 
 /* WEB3 PROVIDER */
 if (typeof web3 != 'undefined') {
-    web3provider = web3.currentProvider
+    web3 = new Web3(web3.currentProvider)
     console.log("Metamask provider")
 } else {
     alert("Please, install Metamask plugin.")
-    web3provider = new Web3.providers.HttpProvider("http://127.0.0.1:8545")
-    console.log("Ganache provider")
+    web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"))
+    console.log("Local provider")
 }
-export var web3 = new Web3(web3provider)
+export var web3 =  web3
 console.log(web3)
 
 /* CONTRACT IMPLEMENTATION */

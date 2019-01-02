@@ -5,7 +5,6 @@ import '../styles/App.css';
 import ethereumsvg from '../images/ethereum.svg';
 import supply from '../images/supply.svg';
 /* Util */
-import initWeb3 from '../utils/initWeb3';
 import * as eth from '../ethereum/ethereumController.js';
 import config from '../config';
 /* React Components */
@@ -17,13 +16,12 @@ import Footer from './Footer';
 class Proveedor extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { web3: '', defaultaccount: '0x0', contract: '', contractaddress: '0x0', solicitudes: '' }
+		this.state = { defaultaccount: '0x0', contract: '', contractaddress: '0x0', solicitudes: '' }
 	}
 
 	async componentWillMount() {
 		console.log("* * COMPONENT WILL MOUNT ")
 		this.setState({
-			web3: await eth.web3,
 			defaultaccount: await eth.getDefaultAccount(),
 			contract: await eth.contract,
 			contractaddress: await eth.address,
@@ -44,11 +42,6 @@ class Proveedor extends Component {
 
 	}
 
-	async solicitar(_producto, _precio) {
-		console.log(this.state.web3.utils.toWei(_precio))
-		var x = await eth.solicitar(_producto, this.state.web3.utils.toWei(_precio))
-		console.log(x)
-	}
 
 	async getSolicitudByID(_id) {
 		eth.getSolicitudByID(_id).then(x => {

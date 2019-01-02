@@ -45,6 +45,12 @@ export default class Proveedor extends Component {
 
     }
 
+    async solicitar(_producto, _precio) {
+		console.log(eth.web3.utils.toWei(_precio))
+		var x = await eth.solicitar(_producto, eth.web3.utils.toWei(_precio))
+		console.log(x)
+    }
+    
     async getAllMySolicitudes() {
         eth.getAllSolicitudesByAddress(this.state.defaultaccount).then(result => {
             this.setState({
