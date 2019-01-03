@@ -7,10 +7,6 @@ import { Button } from 'reactstrap';
 
 class Solicitudes extends Component {
 
-	constructor(props) {
-		super(props)
-	}
-
 	async cubrir(_id) {
 		var x = await eth.cubrir(_id)
 		console.log(x)
@@ -36,10 +32,7 @@ class Solicitudes extends Component {
 
 	render() {
 		console.log("* * Component Solicitudes Render * *")
-		console.log(this.props.solicitudes)
-
 		return (
-
 			<div key="Solicitudes">
 				{Object.keys(this.props.solicitudes).map((item, i) => (
 					<div className="div-solicitudes" key={"Solicitud" + item}>

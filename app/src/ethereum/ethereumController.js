@@ -9,7 +9,7 @@ export var address = config.smartcontractaddress
 var web3 = window.web3
 
 console.log("DEBUG ********************S*S*S**S*S")
-console.log(web3.providers)
+console.log(window.ethereum)
 console.log(web3.currentProvider)
 
 console.log("METAMASKKKKKKKKKKKKKK")

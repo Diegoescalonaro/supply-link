@@ -9,14 +9,13 @@ import * as eth from '../ethereum/ethereumController.js';
 import config from '../config';
 /* React Components */
 import { Button } from 'reactstrap';
-
 import Header from './Header';
 import Footer from './Footer';
 
 class Home extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {defaultaccount: '0x0', contract: '', contractaddress: '0x0'}
+		this.state = {defaultaccount: '0x0', contractaddress: '0x0'}
 	}
 
 	async componentWillMount() {
@@ -37,8 +36,6 @@ class Home extends Component {
 
 	render() {
 		console.log("* * Component APP Render * *")
-
-		//TODO: ERROR Please pass numbers as strings or BigNumber objects to avoid precision errors.
 
 		return (
 			<div className="App">

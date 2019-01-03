@@ -16,14 +16,17 @@ import Footer from './Footer';
 class Proveedor extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { defaultaccount: '0x0', contract: '', contractaddress: '0x0', solicitudes: '' }
+		this.state = {
+			defaultaccount: '0x0',
+			contractaddress: '0x0',
+			solicitudes: ''
+		}
 	}
 
 	async componentWillMount() {
 		console.log("* * COMPONENT WILL MOUNT ")
 		this.setState({
 			defaultaccount: await eth.getDefaultAccount(),
-			contract: await eth.contract,
 			contractaddress: await eth.address,
 			solicitudes: await eth.getAllSolicitudes()
 		})
@@ -32,16 +35,12 @@ class Proveedor extends Component {
 	async componentDidUpdate() {
 		console.log(" * * Component Did UPDATE * *")
 		eth.getEvent().then(event => {
-			console.log("- - ComponentdidMount EVENTTTTT - - ")
 			this.getAllSolicitudes()
 		})
 		eth.getMetamaskEvent().then(event => {
-			console.log("- - ComponentdidMount EVENTTTTT - - ")
 			window.location.reload()
 		})
-
 	}
-
 
 	async getSolicitudByID(_id) {
 		eth.getSolicitudByID(_id).then(x => {
@@ -57,7 +56,6 @@ class Proveedor extends Component {
 				solicitudes: x
 			})
 		})
-
 	}
 
 	async getAllSolicitudesByAddress(_address) {
@@ -79,8 +77,6 @@ class Proveedor extends Component {
 
 	render() {
 		console.log("* * Component APP Render * *")
-
-		//TODO: ERROR Please pass numbers as strings or BigNumber objects to avoid precision errors.
 
 		return (
 			<div className="App">

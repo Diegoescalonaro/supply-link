@@ -4,10 +4,12 @@ import * as eth from '../ethereum/ethereumController.js';
 import ethereumsvg from '../images/ethereum.svg';
 import supply from '../images/supply.svg';
 /* React Components */
+import Solicitudes from './Solicitudes';
 import Header from './Header';
+import Footer from './Footer';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import Solicitudes from './Solicitudes';
+
 
 /* Config */
 import config from '../config';
@@ -42,15 +44,14 @@ export default class Proveedor extends Component {
             console.log("- - ComponentdidMount EVENTTTTT - - ")
             window.location.reload()
         })
-
     }
 
     async solicitar(_producto, _precio) {
-		console.log(eth.web3.utils.toWei(_precio))
-		var x = await eth.solicitar(_producto, eth.web3.utils.toWei(_precio))
-		console.log(x)
+        console.log(eth.web3.utils.toWei(_precio))
+        var x = await eth.solicitar(_producto, eth.web3.utils.toWei(_precio))
+        console.log(x)
     }
-    
+
     async getAllMySolicitudes() {
         eth.getAllSolicitudesByAddress(this.state.defaultaccount).then(result => {
             this.setState({
@@ -95,18 +96,23 @@ export default class Proveedor extends Component {
                     <Button className="button" color="secondary" onClick={e => this.getData()}> Datos </Button>
 
                     {this.state.solicitudes ?
-                        <Solicitudes className="button" solicitudes={this.state.solicitudes} action="VALIDAR"></Solicitudes>
+                        <div>
+                            <Solicitudes className="button" solicitudes={this.state.solicitudes} action="VALIDAR"></Solicitudes>
+                            <Footer />
+                        </div>
                         : <img src={ethereumsvg} className="App-logo" alt="logo" />
                     }
                     {this.state.data ?
-                        <div className="profile-data">
-                            <p className="h4" >Ethereum network: <a href={"https://kovan.etherscan.io/"}>  {config.network}</a></p>
-                            <p className="h4" >Default Account (Metamask):	<a href={etherscanaccount}>{this.state.defaultaccount}></a></p>
-                            <p className="h4" >Smart Contract: <a href={etherscancontract}>{this.state.contractaddress}</a></p>
+                        <div>
+                            <div className="profile-data">
+                                <p className="h4" >Ethereum network: <a href={"https://kovan.etherscan.io/"}>  {config.network}</a></p>
+                                <p className="h4" >Default Account (Metamask):	<a href={etherscanaccount}>{this.state.defaultaccount}></a></p>
+                                <p className="h4" >Smart Contract: <a href={etherscancontract}>{this.state.contractaddress}</a></p>
+                            </div>
+                            <Footer />
                         </div>
                         : <br></br>}
-                    <br></br><br></br>
-                    <Link className="link" to="/home">Back to home</Link>
+
                 </div>
             </div>
         )

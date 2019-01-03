@@ -63,6 +63,7 @@ font-size:120%;
 #cliente-color{
   color:rgba(40, 155, 40, 0.493);
   font-size:200%;
+  font-family:'Allerta Stencil';
 }
 
 #proveedor{
@@ -71,6 +72,7 @@ font-size:120%;
 #proveedor-color{
   color:rgba(43, 43, 255, 0.432);
   font-size:200%;
+  font-family:'Allerta Stencil';
 }
 
 .input{
