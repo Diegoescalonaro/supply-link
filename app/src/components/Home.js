@@ -5,86 +5,33 @@ import '../styles/App.css';
 import ethereumsvg from '../images/ethereum.svg';
 import supply from '../images/supply.svg';
 /* Util */
-import initWeb3 from '../utils/initWeb3';
 import * as eth from '../ethereum/ethereumController.js';
 import config from '../config';
 /* React Components */
 import { Button } from 'reactstrap';
-import Solicitudes from './Solicitudes';
+
 import Header from './Header';
 import Footer from './Footer';
 
 class Home extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { web3: '', defaultaccount: '0x0', contract: '', contractaddress: '0x0', solicitudes: '' }
+		this.state = {defaultaccount: '0x0', contract: '', contractaddress: '0x0'}
 	}
 
 	async componentWillMount() {
 		console.log("* * COMPONENT WILL MOUNT ")
 		this.setState({
-			web3: await eth.web3,
 			defaultaccount: await eth.getDefaultAccount(),
-			contract: await eth.contract,
-			contractaddress: await eth.address,
-			solicitudes: await eth.getAllSolicitudes()
+			contractaddress: await eth.address
 		})
 	}
 
 	async componentDidUpdate() {
 		console.log(" * * Component Did UPDATE * *")
-		eth.getEvent().then(event => {
-			console.log("- - ComponentdidMount EVENTTTTT - - ")
-			this.getAllSolicitudes()
-		})
 		eth.getMetamaskEvent().then(event => {
 			console.log("- - ComponentdidMount EVENTTTTT - - ")
 			window.location.reload()
-		})
-
-	}
-
-	start() {
-		var web3 = initWeb3();
-		var defaultaccount = web3.currentProvider.selectedAddress;
-		this.setState({
-			defaultaccount: defaultaccount,
-			web3: web3
-		})
-	}
-
-	async solicitar(_producto, _precio) {
-		console.log(this.state.web3.utils.toWei(_precio))
-		var x = await eth.solicitar(_producto, this.state.web3.utils.toWei(_precio))
-		console.log(x)
-	}
-
-	async getSolicitudByID(_id) {
-		console.log(_id)
-		eth.getSolicitudByID(_id).then(x => {
-			this.setState({
-				solicitudes: x
-			})
-			console.log(x)
-		})
-	}
-
-	async getAllSolicitudes() {
-		eth.getAllSolicitudes().then(x => {
-			this.setState({
-				solicitudes: x
-			})
-			console.log(x)
-		})
-
-	}
-
-	async getAllSolicitudesByAddress(_address) {
-		eth.getAllSolicitudesByAddress(_address).then(x => {
-			this.setState({
-				solicitudes: x
-			})
-			console.log(x)
 		})
 	}
 
