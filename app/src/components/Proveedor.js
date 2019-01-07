@@ -87,12 +87,8 @@ class Proveedor extends Component {
 					<p className="subtittle"> Cubre demandas de clientes</p>
 					<hr className="my-2" />
 					<img className="image-supply" src={supply} alt="Supply" />
-					<hr className="my-2" />
-					<p className="subtittle">  </p>
 
-					<br></br>
-
-					<div>
+					<div className="div-right">
 						<br></br>
 						<Button className="button" color="secondary" onClick={e => this.getAllSolicitudes()}> Ver todas</Button>
 						<Button className="button" color="secondary" onClick={e => this.getAllSolicitudesForProvider(this.state.defaultaccount)}> Mostrar mi histórico </Button>
@@ -104,7 +100,7 @@ class Proveedor extends Component {
 				</header>
 
 				{this.state.solicitudes ?
-					<div className="App-body">
+					<div className="App-body"> <br></br>
 						{this.state.solicitudes &&
 							<Solicitudes solicitudes={this.state.solicitudes} action="CUBRIR"></Solicitudes>
 						}

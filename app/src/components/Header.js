@@ -26,11 +26,12 @@ export default class Solicitud extends Component {
         console.log("* * Component HEADER Render * *")
         var etherscanaccount = `https://${config.network}.etherscan.io/address/${this.props.defaultaccount}`
         var etherscancontract = `https://${config.network}.etherscan.io/address/${this.props.contractaddress}`
+        var network = `https://www.rinkeby.io/#stats`
 
 
         return (
             <Navbar color="light" light expand="md">
-                <NavbarBrand className="tittle-header" href="/">Supply-Link</NavbarBrand>
+                <NavbarBrand className="tittle-header" href="/">&nbsp;Supply-Link</NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
@@ -52,7 +53,7 @@ export default class Solicitud extends Component {
                                     <NavLink className="nav-item-text" href={etherscancontract}> Smart Contract: {this.props.contractaddress}</NavLink>
                                 </DropdownItem>
                                 <DropdownItem>
-                                    <NavLink className="nav-item-text" href={etherscancontract}> Ethereum Network: {config.network}</NavLink>
+                                    <NavLink className="nav-item-text" href={network}> Ethereum Network: {config.network}</NavLink>
                                 </DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem>

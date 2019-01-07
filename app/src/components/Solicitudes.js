@@ -3,7 +3,7 @@ import '../styles/App.css';
 import * as eth from '../ethereum/ethereumController.js';
 
 import Solicitud from './Solicitud';
-import { Button } from 'reactstrap';
+import { Button, ButtonGroup } from 'reactstrap';
 
 class Solicitudes extends Component {
 
@@ -14,7 +14,7 @@ class Solicitudes extends Component {
 
 	async validar(_id, _precio) {
 		console.log(_precio)
-		var x = await eth.validar(_id,_precio)
+		var x = await eth.validar(_id, _precio)
 		alert(x)
 	}
 
@@ -37,12 +37,15 @@ class Solicitudes extends Component {
 				{Object.keys(this.props.solicitudes).map((item, i) => (
 					<div className="div-solicitudes" key={"Solicitud" + item}>
 						<Solicitud solicitudes={this.props.solicitudes} item={item}></Solicitud>
-						{(this.props.action === "CUBRIR") ? <Button className="button-cubrir" color="primary" onClick={e => this.cubrir(this.props.solicitudes[item].id)}>{this.props.action}</Button>
-							: <div>
-								<Button color="success" onClick={e => this.validar(this.props.solicitudes[item].id, this.props.solicitudes[item].precio)}>{this.props.action}</Button>
-								<Button color="warning" onClick={e => this.cancelar(this.props.solicitudes[item].id)}>CANCELAR</Button>
-								<Button color="danger" onClick={e => this.eliminar(this.props.solicitudes[item].id)}>ELIMINAR</Button>
-							</div>}
+						<div className="div-solicitudes-buttons">
+							{(this.props.action === "CUBRIR") ? <Button className="button-cubrir" color="primary" onClick={e => this.cubrir(this.props.solicitudes[item].id)}>{this.props.action}</Button>
+								: <div>
+									<Button color="success" className="button2" onClick={e => this.validar(this.props.solicitudes[item].id, this.props.solicitudes[item].precio)}>{this.props.action}</Button>
+									<Button color="warning" className="button2" onClick={e => this.cancelar(this.props.solicitudes[item].id)}>CANCELAR</Button>
+									<Button color="danger" className="button2" onClick={e => this.eliminar(this.props.solicitudes[item].id)}>ELIMINAR</Button>
+								</div>
+							}
+						</div>
 					</div>
 				))}
 			</div>
