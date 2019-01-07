@@ -204,7 +204,7 @@ export var getAllSolicitudes = async function () {
     var result = []
     for (var i = length - 1; i >= 0; i--) {
         var solicitud = await contract.methods.getSolicitudByID(i).call()
-        if (solicitud.product !== '') {
+        if (solicitud.producto !== '') {
             result.push(solicitud)
         }
     }

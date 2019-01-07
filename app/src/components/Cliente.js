@@ -49,7 +49,6 @@ export default class Proveedor extends Component {
     async solicitar(_producto, _precio) {
         console.log(eth.web3.utils.toWei(_precio))
         var x = await eth.solicitar(_producto, eth.web3.utils.toWei(_precio))
-        console.log(x)
     }
 
     async getAllMySolicitudes() {
@@ -82,7 +81,6 @@ export default class Proveedor extends Component {
                     <p className="subtittle"> Demanda productos a proveedores y valida todo el proceso sobre blockchain.</p>
                     <hr className="my-2" />
                     <img className="image-supply" src={supply} alt="Supply" />
-                    <hr className="my-2" />
 
                     <div>
                         <input className="input" ref="producto" type="text" placeholder="producto a demandar"></input>
