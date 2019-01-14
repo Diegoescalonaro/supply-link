@@ -45,6 +45,14 @@ font-size:120%;
   margin-left:10%;
   line-height:100%;
 }
+.lista{
+  margin:auto;
+  text-align:left;
+}
+.lista li{
+  margin:auto;
+}
+
 .home-buttons-div{
   width:95%;
   height:calc(10vw + 0.3vh + 2vmin);
