@@ -145,12 +145,12 @@ font-size:120%;
   font-weight:800;
 }
 .div-solicitud .lead{
-  font-size: calc(0.4vw + 0.3vh + 2vmin);
-  font-weight:500;
+  font-size: calc(0.2vw + 0.2vh + 2vmin);
+  font-weight:100;
 }
 
 .button { 
-  font-size: calc(5px + 2vmin);
+  font-size: calc(3px + 2vmin);
   font-weight:900;
   size:calc(20vw + 0.3vh );
   margin-bottom:10px;
@@ -162,6 +162,23 @@ font-size:120%;
   padding-bottom:10px;
   font-weight:900;
 }
+.btn-primary{
+  background-color: #3879c9;
+  border-color: rgba(255, 255, 255, 0);
+}
+.btn-success {
+  background-color: #28a7469c;
+  color:black;
+}
+.btn-warning {
+  background-color: #ffc10797;
+
+}
+.btn-danger{
+  background-color: #dc354684;
+  color:black;
+}
+
 .image-supply{
   margin-right:10%;
   margin-left:10%;

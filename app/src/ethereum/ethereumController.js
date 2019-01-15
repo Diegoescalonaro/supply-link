@@ -1,5 +1,6 @@
 import Web3 from 'web3';
 import config from '../config';
+import Solicitud from '../components/Solicitud';
 
 /* ABI + ADDRESS */
 export var ABI = require('./ABI.js').default
@@ -211,27 +212,61 @@ export var getAllSolicitudes = async function () {
     return result
 }
 
-//Igual: getAllSolicitudesForOwner
+/* -------------- CLIENTE -------------- */
 /**
- * @function getAllSolicitudesByAddress
+ * @function getHistoricForAddress
  * @description
  * @returns
  */
-export var getAllSolicitudesByAddress = async function (address) {
+export var getHistoricForAddress = async function (address) {
     var length = await contract.methods.getLength().call()
     var result = []
     for (var i = length - 1; i >= 0; i--) {
         var solicitud = await contract.methods.getSolicitudByID(i).call()
-        if (solicitud.owner.toUpperCase() == address.toUpperCase()) {
+        if (solicitud.owner.toUpperCase() == address.toUpperCase() && solicitud.status == 2) {
             result.push(solicitud)
-            console.log(result)
         }
     }
     return result
 }
 
 
-//TODO: getAllSolicitudesForProvider
+/**
+ * @function getAllMyActiveSolicitudes 
+ * @description
+ * @returns
+ */
+export var getAllMyActiveSolicitudes = async function (address) {
+    var length = await contract.methods.getLength().call()
+    var result = []
+    for (var i = length - 1; i >= 0; i--) {
+        var solicitud = await contract.methods.getSolicitudByID(i).call()
+        if ((solicitud.producto !== '' && solicitud.status != 2) && solicitud.owner.toUpperCase() == address.toUpperCase()){
+            result.push(solicitud)
+        }
+    }
+    return result
+}
+
+
+/* -------------- PROVEEDOR -------------- */
+/**
+ * @function getAllActiveSolicitudes 
+ * @description
+ * @returns
+ */
+export var getAllActiveSolicitudes = async function () {
+    var length = await contract.methods.getLength().call()
+    var result = []
+    for (var i = length - 1; i >= 0; i--) {
+        var solicitud = await contract.methods.getSolicitudByID(i).call()
+        if (solicitud.producto !== '' && solicitud.status == 0) {
+            result.push(solicitud)
+        }
+    }
+    return result
+}
+
 /**
  * @function getAllSolicitudesForProvider
  * @description

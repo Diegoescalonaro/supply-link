@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import * as eth from '../ethereum/ethereumController.js';
 import ethereumsvg from '../images/ethereum.svg';
-import supply from '../images/supply.svg';
+import supply from '../images/supplycliente.svg';
 /* React Components */
 import Solicitudes from './Solicitudes';
 import Header from './Header';
@@ -30,7 +30,7 @@ export default class Proveedor extends Component {
             defaultaccount: await eth.getDefaultAccount(),
             contractaddress: eth.address,
         })
-        this.getAllMySolicitudes()
+        this.getAllMyActiveSolicitudes()
     }
 
 
@@ -38,7 +38,7 @@ export default class Proveedor extends Component {
         console.log(" * * Component Did UPDATE * *")
         eth.getEvent().then(event => {
             console.log("- - ComponentdidMount EVENTTTTT - - ")
-            this.getAllMySolicitudes()
+            this.getAllMyActiveSolicitudes()
         })
         eth.getMetamaskEvent().then(event => {
             console.log("- - ComponentdidMount EVENTTTTT - - ")
@@ -51,8 +51,9 @@ export default class Proveedor extends Component {
         var x = await eth.solicitar(_producto, eth.web3.utils.toWei(_precio))
     }
 
-    async getAllMySolicitudes() {
-        eth.getAllSolicitudesByAddress(this.state.defaultaccount).then(result => {
+    async getHistoricForAddress() {
+        eth.getHistoricForAddress(this.state.defaultaccount).then(result => {
+            console.log(result)
             this.setState({
                 solicitudes: result,
                 data: false
@@ -60,16 +61,18 @@ export default class Proveedor extends Component {
         })
     }
 
-    getData() {
-        this.setState({
-            solicitudes: false,
-            data: true
+    async getAllMyActiveSolicitudes() {
+        eth.getAllMyActiveSolicitudes(this.state.defaultaccount).then(result => {
+            console.log(result)
+            this.setState({
+                solicitudes: result,
+                data: true
+            })
         })
     }
 
+
     render() {
-        var etherscanaccount = `https://${config.network}.etherscan.io/address/${this.state.defaultaccount}`
-        var etherscancontract = `https://${config.network}.etherscan.io/address/${this.state.contractaddress}`
 
         console.log("* * Component PERFIL Render * *")
         return (
@@ -81,35 +84,40 @@ export default class Proveedor extends Component {
                     <p className="subtittle"> Demanda productos a proveedores y valida todo el proceso sobre blockchain.</p>
                     <hr className="my-2" />
                     <img className="image-supply" src={supply} alt="Supply" />
-
                     <div>
-                        <input className="input" ref="producto" type="text" placeholder="producto a demandar"></input>
-                        <input className="input" id="input2" ref="precio" type="number" placeholder="precio ETH"></input>
-                        <Button className="button" color="primary" onClick={e => this.solicitar(this.refs.producto.value, this.refs.precio.value)}> SOLICITAR</Button>
+                        <Button className="button" color="secondary" onClick={e => this.getAllMyActiveSolicitudes()}> Solicitudes activas</Button>
+                        <Button className="button" color="secondary" onClick={e => this.getHistoricForAddress()}> Historico de solicitudes</Button>
+                        <Button className="button" color="secondary" onClick=""> Stock de productos</Button>
                     </div>
                 </header>
 
                 <div className="App-body">
-                    <Button className="button" color="secondary" onClick={e => this.getAllMySolicitudes()}> Mostrar mis solicitudes</Button>
-                    <Button className="button" color="secondary" onClick={e => this.getData()}> Datos </Button>
-
-                    {this.state.solicitudes ?
-                        <div>
-                            <Solicitudes className="button" solicitudes={this.state.solicitudes} action="VALIDAR"></Solicitudes>
-                            <Footer />
-                        </div>
-                        : <img src={ethereumsvg} className="App-logo" alt="logo" />
-                    }
+                    <div>
+                        <br></br>
+                        <input className="input" ref="producto" type="text" placeholder="producto a demandar"></input>
+                        <input className="input" id="input2" ref="precio" type="number" placeholder="precio ETH"></input>
+                        <Button className="button" color="primary" onClick={e => this.solicitar(this.refs.producto.value, this.refs.precio.value)}> SOLICITAR</Button>
+                        <br></br>
+                    </div>
                     {this.state.data ?
-                        <div>
-                            <div className="profile-data">
-                                <p className="h4" >Ethereum network: <a href={"https://kovan.etherscan.io/"}>  {config.network}</a></p>
-                                <p className="h4" >Default Account (Metamask):	<a href={etherscanaccount}>{this.state.defaultaccount}></a></p>
-                                <p className="h4" >Smart Contract: <a href={etherscancontract}>{this.state.contractaddress}</a></p>
+                        this.state.solicitudes ?
+                            <div>
+                                <Solicitudes className="button" solicitudes={this.state.solicitudes} action="VALIDAR"></Solicitudes>
+                                <Footer />
                             </div>
-                            <Footer />
-                        </div>
-                        : <br></br>}
+                            : <div>
+                                <img src={ethereumsvg} className="App-logo" alt="logo" /><h2>Cargando...</h2>
+                            </div>
+                        :
+                        this.state.solicitudes ?
+                            <div>
+                                <Solicitudes className="button" solicitudes={this.state.solicitudes} action="VALIDAR"></Solicitudes>
+                                <Footer />
+                            </div>
+                            : <div>
+                                <img src={ethereumsvg} className="App-logo" alt="logo" /><h2>Cargando...</h2>
+                            </div>
+                    }
 
                 </div>
             </div>
