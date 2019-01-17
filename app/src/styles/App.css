@@ -145,7 +145,7 @@ font-size:120%;
   font-weight:800;
 }
 .div-solicitud .lead{
-  font-size: calc(0.2vw + 0.2vh + 2vmin);
+  font-size: calc(0.2vw + 0.2vh + 2.5vmin);
   font-weight:100;
 }
 
