@@ -15,19 +15,16 @@ class Solicitudes extends Component {
 	async validar(_id, _precio) {
 		console.log(_precio)
 		var x = await eth.validar(_id, _precio)
-		alert(x)
 	}
 
 	async eliminar(_id) {
 		var x = await eth.cancelar(_id, true)
 		console.log(x)
-		alert(x)
 	}
 
 	async cancelar(_id) {
 		var x = await eth.cancelar(_id, false)
 		console.log(x)
-		alert(x)
 	}
 
 	render() {
