@@ -13,7 +13,7 @@ export default class Footer extends Component {
             <div className="footer">
                 <br></br>
                 <h3 className="head"></h3>
-                <p className="lead">Trabajo Fin De Grado - Supply-Link</p>
+                <p className="lead">Trabajo Fin De Grado - One Click Away</p>
                 <br></br>
             </div>
 

@@ -42,7 +42,7 @@ class Home extends Component {
 				<Header defaultaccount={this.state.defaultaccount} contractaddress={this.state.contractaddress} />
 
 				<header className="App-header">
-					<h1 className="tittle">Supply-Link</h1>
+					<h1 className="tittle">One Click Away</h1>
 					<p className="subtittle"> Plataforma que conecta cliente con proveedor, a traves de la automatización de las solicitudes del cliente</p>
 					<hr className="my-2" />
 					<img className="image-supply" src={supply} alt="Supply" />

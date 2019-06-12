@@ -31,7 +31,7 @@ export default class Solicitud extends Component {
 
         return (
             <Navbar color="light" light expand="md">
-                <NavbarBrand className="tittle-header" href="/">&nbsp;Supply-Link</NavbarBrand>
+                <NavbarBrand className="tittle-header" href="/">&nbsp;One Click Away</NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
